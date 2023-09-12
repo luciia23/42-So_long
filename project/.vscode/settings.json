@@ -1,0 +1,9 @@
+{
+    "C_Cpp.errorSquiggles": "enabled",
+    "files.associations": {
+        "game.h": "c",
+        "sdl.h": "c",
+        "stdlib.h": "c",
+        "libft.h": "c"
+    }
+}
