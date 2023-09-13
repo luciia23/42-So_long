@@ -11,10 +11,17 @@
 #include <unistd.h>
 #include <stdint.h>
 
+#include "files.h"
+
+
+#define TILE_SIZE 64
+
 typedef struct s_vector {
     int x;
     int y;
 }               t_vector;
+
+#include "sprite.h"
 
 typedef enum e_bool {
     false,
@@ -32,15 +39,31 @@ typedef struct s_map {
     int         total_collec;
 }               t_map;
 
-
-
 typedef struct s_game {
-    void        *mlx;
-    t_window    window;
-    t_map       map;
-    int         collec;
+    void            *mlx;
+    t_window        window;
+    t_map           map;
+    t_collection    collection;
+    int             movements;
 }               t_game;
 
-void    error(char *msg);
+// WINDOW
+t_window    ft_new_window(void *mlx, int width, int height, char *title);
+
+// CHECK
+int valid_file(int argc, char *file);
+int valid_map(t_map *map);
+
+// MAP
+void map_init(t_game *game, char *file);
+void    draw_map(t_game *game);
+
+// UTILS
+int    error(char *msg);
+
+// IMG
+void    img_init(t_game *game);
+void    draw_img(t_game *game, int x, int y);
+
 
 #endif

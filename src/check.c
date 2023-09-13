@@ -19,10 +19,11 @@ int check_rectangular(t_map *map)
 
     initial_len = ft_strlen(map->coords[0]);
     i = 1;
+    printf("i_len%d\n", initial_len);
     while (i < map->size.y)
     {
         actual_len = ft_strlen(map->coords[i]);
-
+        printf("a_len%d\n", actual_len);
         if (actual_len != initial_len)
             return (error("the map isn't rectangular"));
         i++;
@@ -37,37 +38,6 @@ int valid_border(int x, int y, t_map *map)
         return (0);
     return (1);
 
-}
-
-int valid_char(char c)
-{
-    if (c == '1' || c == '0' || c == 'C' || c == 'E' || c == 'P' )
-        return (1);
-    return (0);
-}
-
-// if(!ft_strchr("01CEP, map->coords[y][x]"))
-
-int check_border(t_map *map)
-{
-    int y;
-    int x;
-
-    y = 0;
-    while (y < map->size.y)
-    {
-        x = 0;
-        while (x < map->size.x)
-        {
-            if (!valid_border(x, y, map))
-                return (error("the border map isn't closed"));
-            if (valid_char(map->coords[y][x]))
-                return (error("there are wrong characters"));
-            x ++;
-        }
-        y++;
-    }
-    return (1);
 }
 
 int check_chars(t_map *map)
@@ -100,9 +70,37 @@ int check_chars(t_map *map)
     return (1);
 }
 
+int valid_char(char c)
+{
+    if (c == '1' || c == '0' || c == 'C' || c == 'E' || c == 'P' )
+        return (1);
+    return (0);
+}
+
+// if(!ft_strchr("01CEP, map->coords[y][x]"))
+
 int valid_map(t_map *map)
 {
-    check_rectangular(map);
-    check_border(map);
+    int y;
+    int x;
+
+    y = 0;
+    printf("%d\n", map->size.y);
+    if (!check_rectangular(map))
+        return (0);
+    while (y < map->size.y)
+    {
+        x = 0;
+        while (x < map->size.x)
+        {
+            if (!valid_border(x, y, map))
+                return (error("the border map isn't closed"));
+            if (valid_char(map->coords[y][x]))
+                return (error("there are wrong characters"));
+            x++;
+        }
+        y++;
+    }
     check_chars(map);
+    return (1);
 }

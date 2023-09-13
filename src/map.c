@@ -8,7 +8,7 @@ void    get_rowscols(t_map *map, char *file)
     fd = open(file, O_RDONLY);
     if (fd < 0)
     {
-        printf("error");
+        printf("wrong fd");
         return;
     }
     line = get_next_line(fd);
@@ -33,7 +33,7 @@ void read_map(t_map *map, char *file)
     fd = open(file, O_RDONLY);
     if (fd < 0)
     {
-        printf("error");
+        printf("wrong fd");
         return;
     }
     map->coords = (char **)malloc(sizeof(char *) * (map->size.y + 1));
@@ -60,6 +60,24 @@ void    map_init(t_game *game, char *file)
     game->map.size.y = 0;
     game->map.coords = NULL;
     game->map.total_collec = 0;
-    get_rowcols(&game->map, file);
+    get_rowscols(&game->map, file);
     read_map(&game->map, file);
+}
+
+void    draw_map(t_game *game)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while(i < game->map.size.y)
+    {
+        j = 0;
+        while (j < game->map.size.x)
+        {
+            draw_img(game, j, i);
+            j++;
+        }
+        i++;
+    }
 }

@@ -10,8 +10,8 @@ CC = gcc $(CFLAGS) $(INCLUDE)
 MLX_DIR = mlx
 MLX_PATH = $(MLX_DIR)/libmlx.a
 MLX_MAKE = Makefile
-# MFLAGS = -ldl -lmlx -L${MLX_DIR} -framework OpenGL -framework AppKit -lz
-MFLAGS = -ldl -lmlx -L${MLX_DIR} -lXext -lX11
+MFLAGS = -ldl -lmlx -L${MLX_DIR} -framework OpenGL -framework AppKit -lz
+# MFLAGS = -ldl -lmlx -L${MLX_DIR} -lXext -lX11
 
 # ------- LIBFT -------
 LIBFT_DIR = libft
@@ -19,7 +19,12 @@ LIBFT_PATH = $(LIBFT_DIR)/libft.a
 LIBFT_MAKE = Makefile
 LFLAGS:= -L $(LIBFT_DIR) -lft
 
-SRC = main.c
+SRC = 	main.c\
+		check.c\
+		map.c\
+		utils.c\
+		window.c\
+		image.c
 
 OBJS = $(SRC:%.c=$(BIN)/%.o)
 
