@@ -54,34 +54,12 @@ void read_map(t_map *map, char *file)
     close(fd);
 }
 
-
-
-void    get_collec(t_map *map)
-{
-    int i;
-    int j;
-
-    i = 0;
-    while (i < map->size.y)
-    {
-        j = 0;
-        while (j < map->size.x)
-        {
-            if (map->coords[i][j] == 'C')
-                map->total_collec++;
-            j++;
-        }
-        i++;
-    }
-}
-
 void    map_init(t_game *game, char *file)
-{
+{       
     game->map.size.x = 0;
     game->map.size.y = 0;
     game->map.coords = NULL;
     game->map.total_collec = 0;
     get_rowcols(&game->map, file);
     read_map(&game->map, file);
-    get_collec(&game->map);
 }
