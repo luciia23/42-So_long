@@ -24,7 +24,9 @@ SRC = 	main.c\
 		map.c\
 		utils.c\
 		window.c\
-		image.c
+		image.c\
+		free.c\
+		hooks.c
 
 OBJS = $(SRC:%.c=$(BIN)/%.o)
 

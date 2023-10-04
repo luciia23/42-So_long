@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.c                                           :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 14:04:40 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/04 14:04:43 by lcollado         ###   ########.fr       */
+/*   Created: 2023/10/04 14:03:15 by lcollado          #+#    #+#             */
+/*   Updated: 2023/10/04 14:03:18 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "game.h"
+#include "game.h"
 
-int ft_close()
+void    free_map(t_map *map)
 {
-    exit(0);
-}
+    int i = 0;
 
-t_window    ft_new_window(void *mlx, int width, int height, char *title)
-{
-    t_window    window = {0};
-    
-    window.win = mlx_new_window(mlx, width, height, title);
-    mlx_hook(window.win, 17, 0, ft_close, 0);
-    return (window);
+    while (i < map->size.y)
+    {
+        if (map->coords[i] != NULL)
+            free(map->coords[i]);
+        i++;
+    }
+    free(map->coords);
+    map->coords = NULL;
 }

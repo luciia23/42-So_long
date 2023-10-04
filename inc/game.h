@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/04 14:05:25 by lcollado          #+#    #+#             */
+/*   Updated: 2023/10/04 14:05:30 by lcollado         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GAME_H
 # define GAME_H
 
@@ -12,9 +24,14 @@
 #include <stdint.h>
 
 #include "files.h"
+#include "keys.h"
 
 
 #define TILE_SIZE 64
+
+/*COLORS*/
+#define RED "\033[0m"
+
 
 typedef struct s_vector {
     int x;
@@ -45,6 +62,8 @@ typedef struct s_game {
     t_map           map;
     t_collection    collection;
     int             movements;
+    int             moving;
+    int             collec;
 }               t_game;
 
 // WINDOW
@@ -65,5 +84,12 @@ int    error(char *msg);
 void    img_init(t_game *game);
 void    draw_img(t_game *game, int x, int y);
 
+//FREE
+void    free_map(t_map *map);
+
+//HOOKS
+int on_key_press(int keycode, t_game *game);
+int on_key_release(int keycode, t_game *game);
+void    print_steps(t_game  *game);
 
 #endif

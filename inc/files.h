@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   files.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/04 14:05:11 by lcollado          #+#    #+#             */
+/*   Updated: 2023/10/04 14:05:14 by lcollado         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FILES_H
 # define FILES_H
 
 /*                           E N V                          */
-# define COIN_IMG           "sprites/env/coin.xpm"
+# define COIN_IMG           "sprites/env/gema.xpm"
 # define FLOOR_IMG          "sprites/env/floor.xpm"
 # define OPEN_EXIT_IMG      "sprites/env/open_exit.xpm"
 # define EXIT_IMG           "sprites/env/exit.xpm"

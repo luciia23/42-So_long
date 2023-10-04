@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprite.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/04 14:05:51 by lcollado          #+#    #+#             */
+/*   Updated: 2023/10/04 14:05:58 by lcollado         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SPRITE_H
 # define SPRITE_H
 
@@ -40,6 +52,5 @@ typedef struct s_collection{
     t_image     open_exit;
 }               t_collection;
 
-t_image ft_new_sprite(void *mlx, char *path);
 
 #endif

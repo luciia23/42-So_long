@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/04 14:04:17 by lcollado          #+#    #+#             */
+/*   Updated: 2023/10/04 14:04:20 by lcollado         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 # include "game.h"
 
 void    get_rowscols(t_map *map, char *file)
@@ -53,6 +66,8 @@ void read_map(t_map *map, char *file)
     }
     close(fd);
 }
+
+
 
 void    map_init(t_game *game, char *file)
 {       
