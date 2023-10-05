@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:03:27 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/04 14:03:30 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/05 11:22:39 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int array_contains(int *array, int size, int key) {
 
 int on_key_press(int keycode, t_game *game)
 {
+	printf("%d\n", keycode);
 	if (array_contains(allowed_keys, allowed_keys_count, keycode)) {
 		ft_input(keycode, game);
 	}

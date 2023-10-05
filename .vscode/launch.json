@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/so_long",
-            "args": [],
+            "args": ["${workspaceFolder}/map01.ber"],
             "stopAtEntry": true,
             "cwd": "${fileDirname}",
             "environment": [],

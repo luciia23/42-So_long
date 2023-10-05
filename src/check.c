@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:02:49 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/04 14:19:22 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/05 12:57:27 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,31 +85,74 @@ int	check_chars(t_map *map)
 		i++;
 	}
 	if (p != 1 || e != 1 || map->total_collec == 0)
-		return(error("map has to have 1 P, 1 E and at least 1 C"));
+		return (0);
 	return (1);
 }
 
-int	valid_map(t_map *map)
+int	fill(t_map *map, t_vector size, t_vector p_pos, int c, int e)
+{
+	// if (begin.x < 0 || begin.y < 0 || begin.x >= size.x || begin.y >= size.y)
+	// 	return (0);
+	if (map->coords[p_pos.y][p_pos.x] == 'C')
+		c++;
+	if (map->coords[p_pos.y][p_pos.x] == 'E')
+		e++;
+	if (map->coords[p_pos.y][p_pos.x] == '1')
+	{
+		printf("hola\n");
+		return (0);
+	}
+	map->coords[p_pos.y][p_pos.x] = '1';
+
+	fill(map, size, (t_vector){p_pos.x - 1, p_pos.y}, c, e);
+	fill(map, size, (t_vector){p_pos.x + 1, p_pos.y}, c, e);
+	// fill(map, size, (t_vector){p_pos.x, p_pos.y + 1}, c, e);
+	// fill(map, size, (t_vector){p_pos.x, p_pos.y - 1}, c, e);
+
+	//si c es distinto que el total, significa que no ha podido encontrar
+	// todos los coleccionables
+	// if (c != map->total_collec)
+	// 	return 
+	return (0);
+}
+
+int	valid_path(t_game game)
+{
+	int	p_x = game.collection.player.pos.x;
+	int	p_y = game.collection.player.pos.y;
+
+	int	map_x = game.map.size.x;
+	int	map_y = game.map.size.y;
+	
+	if (!fill(&game.map, (t_vector){map_x, map_y}, (t_vector){p_x, p_y}, 0, 0))
+		return (0);
+	return (1);
+}
+
+int	valid_map(t_game *game)
 {
 	int y;
 	int x;
 
 	y = 0;
-	if (!check_rectangular(map))
+	if (!check_rectangular(&game->map))
 		return (0);
-	while (y < map->size.y)
+	while (y < game->map.size.y)
 	{
 		x = 0;
-		while (x < map->size.x)
+		while (x < game->map.size.x)
 		{
-			if (!valid_border(x, y, map))
+			if (!valid_border(x, y, &game->map))
 				return (error("the border map isn't closed"));
-			if (!ft_strchr("01CEP", map->coords[y][x]))
+			if (!ft_strchr("01CEP", game->map.coords[y][x]))
 				return (error("there are wrong characters"));
 			x++;
 		}
 		y++;
 	}
-	check_chars(map);
+	if (!check_chars(&game->map))
+		return(error("map has to have 1 P, 1 E and at least 1 C"));
+	if (!valid_path(*game))
+		return (error("the map doesn't have a valid path"));
 	return (1);
 }

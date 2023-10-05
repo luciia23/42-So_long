@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:03:59 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/04 14:04:04 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/05 12:34:13 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int start(t_game *game, int argc, char *argv[])
     if (!valid_file(argc, argv[1]))
         return (0);
     map_init(game, argv[1]);
-    if (!valid_map(&game->map))
+    if (!valid_map(game))
     {
         free_map(&game->map);
         return (0);
