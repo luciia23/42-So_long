@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 18:20:34 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/12 19:48:31 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/17 14:30:22 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void    init_player(t_game *game)
     game->player.collec = 0;
     game->player.steps = 0;
     game->player.moving = 0;
-    game->player.current_frame = 0;
-    game->frame_count = 0;
+    game->player.current_frame = -1;
 }
 
 void    add_enemy(t_game *game, int x, int y)

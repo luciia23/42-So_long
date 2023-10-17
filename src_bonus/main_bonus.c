@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:00:05 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/16 19:31:26 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:18:58 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,36 @@
 
 void    init(t_game *game)
 {
-    game->mlx = mlx_init();
-    game->window = ft_new_window(game->mlx, game->map.size.x * TILE_SIZE, (game->map.size.y * TILE_SIZE) + 64, "SO_LONG");
-    init_img(game);
-    init_enemies(game);
-    game->delay = 1;
-    game->frame_count = 0;
+	game->mlx = mlx_init();
+	game->window = ft_new_window(game->mlx, game->map.size.x * TILE_SIZE, (game->map.size.y * TILE_SIZE) + 64, "SO_LONG");
+	init_img(game);
+	init_enemies(game);
+	draw_map(game);
 }
 
 int start(t_game *game, int argc, char *argv[])
 {
-    if (!valid_file(argc, argv[1]))
-        return (0);
-    map_init(game, argv[1]);
-    // if (!valid_map(game))
-    // {
-    //     free_map(&game->map);
-    //     return (0);
-    // }
-    init(game);
-    return (1);
+	if (!valid_file(argc, argv[1]))
+		return (0);
+	map_init(game, argv[1]);
+	// if (!valid_map(game))
+	// {
+	// 	free_map(&game->map);
+	// 	return (0);
+	// }
+	init(game);
+	return (1);
 }
 
 int main(int argc, char **argv)
 {
-    t_game  game;
+	t_game  game;
 
-    if (!start(&game, argc, argv))
-        return (0);
-    mlx_hook(game.window.win, 2, 1L<<0, on_key_press, &game);
-    mlx_hook(game.window.win, 3, 1L<<1, on_key_release, &game);
-    // mlx_loop_hook(game.mlx, update, &game);
-    mlx_loop(game.mlx);
-    return (0); 
+	if (!start(&game, argc, argv))
+		return (0);
+	mlx_hook(game.window.win, 2, 1L<<0, on_key_press, &game);
+	mlx_hook(game.window.win, 3, 1L<<1, on_key_release, &game);
+	// mlx_loop_hook(game.mlx, update, &game);
+	mlx_loop(game.mlx);
+	return (0); 
 }

@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:37:25 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/12 11:47:44 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/17 13:09:59 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ typedef struct s_game
     t_map           map;
     t_collection    collection;
     t_player        player;
-    t_image         *p;
     int             p_size;
     t_enemy         *enemies;
     t_actions       actions;

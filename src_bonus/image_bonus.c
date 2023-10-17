@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 11:03:26 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/16 14:26:50 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:08:26 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,9 @@ t_sprite	new_sprite(void *mlx, char *file_path)
 void    set_anim(t_game *game)
 {
     game->player.right = (t_image *)malloc(sizeof(t_image) * 3);
-    game->player.right[0] = new_file_img(game->mlx, "sprites/character1.xpm");
+    game->player.right[0] = new_file_img(game->mlx, "sprites/link.xpm");
     game->player.right[1] = new_file_img(game->mlx, "sprites/character.xpm");
     game->player.right[2] = new_file_img(game->mlx, "sprites/character2.xpm");
-
-    game->p = (t_image *)malloc(sizeof(t_image) * 3);
-    game->p[0] = new_file_img(game->mlx, "sprites/character1.xpm");
-    game->p[1] = new_file_img(game->mlx, "sprites/character.xpm");
-    game->p[2] = new_file_img(game->mlx, "sprites/character2.xpm");
-
 }
 
 void    init_img(t_game *game)
@@ -58,17 +52,14 @@ void    init_img(t_game *game)
 
 void    draw_img(t_game *game, int x, int y)
 {
-    mlx_put_image_to_window(game->mlx, game->window.win, game->collection.floor.img_ptr, x *  TILE_SIZE, y * TILE_SIZE);
+    if (game->map.coords[y][x] == '1' || game->map.coords[y][x] == 'E' || game->map.coords[y][x] == 'C' || game->map.coords[y][x] == 'P')
+        mlx_put_image_to_window(game->mlx, game->window.win, game->collection.floor.img_ptr, x *  TILE_SIZE, y * TILE_SIZE); 
     if (game->map.coords[y][x] == '1')
         mlx_put_image_to_window(game->mlx, game->window.win, game->collection.wall.img_ptr,x * TILE_SIZE, y* TILE_SIZE);
-    // if (game->map.coords[y][x] == 'P')
-    // {
-    //     if (game->player.moving)
-    //     {
-    //         if (game->actions.key_right)
-    //             mlx_put_image_to_window(game->mlx, game->window.win, game->p[game->player.current_frame].img_ptr, game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE);
-    //     }
-    // }
+    if (game->map.coords[y][x] == 'P')
+    {
+        mlx_put_image_to_window(game->mlx, game->window.win, game->player.right[0].img_ptr, x * TILE_SIZE, y * TILE_SIZE); 
+    }
     else if (game->map.coords[y][x] == 'C')
         mlx_put_image_to_window(game->mlx, game->window.win,game->collection.coin.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
     else if (game->map.coords[y][x] == 'E')
