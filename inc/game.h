@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:05:25 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/05 11:41:43 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/07 17:43:50 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int valid_map(t_game *game);
 // MAP
 void map_init(t_game *game, char *file);
 void    draw_map(t_game *game);
+t_map copy_map(const t_map *original);
 
 // UTILS
 int    error(char *msg);

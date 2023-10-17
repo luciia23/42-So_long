@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.h                                           :+:      :+:    :+:   */
+/*   sprite_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:05:51 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/09 12:35:23 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:41:21 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SPRITE_H
 # define SPRITE_H
 
-# include "game.h"
+# include "game_bonus.h"
 
 typedef struct s_image{
     void        *img_ptr;
@@ -44,12 +44,12 @@ typedef struct s_font{
 }               t_font;
 
 typedef struct s_collection{
-    t_sprite    player;
     t_image     floor;
     t_image     wall;
     t_image     coin;
     t_image     exit;
     t_image     open_exit;
+    t_font      panel;
 }               t_collection;
 
 

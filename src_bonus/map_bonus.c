@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   map_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 14:04:17 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/07 20:53:46 by lcollado         ###   ########.fr       */
+/*   Created: 2023/10/09 12:42:25 by lcollado          #+#    #+#             */
+/*   Updated: 2023/10/11 13:48:21 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-# include "game.h"
+#include "game_bonus.h"
 
 void    get_rowscols(t_map *map, char *file)
 {
@@ -67,27 +66,6 @@ void read_map(t_map *map, char *file)
     close(fd);
 }
 
-void    init_player(t_game *game)
-{
-    int i;
-    int j;
-    i = 0;
-    while (i < game->map.size.y)
-    {
-        j = 0;
-        while (game->map.coords[i][j])
-        {
-            if (game->map.coords[i][j] == 'P')
-            {
-                game->collection.player.pos.x = j;
-                game->collection.player.pos.y = i;
-            }
-            j++;
-        }
-        i++;
-    }
-}
-
 void    map_init(t_game *game, char *file)
 {       
     game->map.size.x = 0;
@@ -105,6 +83,7 @@ void    draw_map(t_game *game)
     int j;
 
     i = 0;
+    update_panel(game);
     while(i < game->map.size.y)
     {
         j = 0;

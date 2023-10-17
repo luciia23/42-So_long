@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:05:11 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/04 14:05:14 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:11:08 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define EXIT_IMG           "sprites/env/exit.xpm"
 # define TREE_IMG           "sprites/env/tree.xpm"
 # define LINK_IMG           "sprites/link.xpm"
+
 
 
 /*                           N U M B E R S                          */

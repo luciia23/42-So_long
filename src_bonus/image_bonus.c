@@ -1,58 +1,74 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image.c                                            :+:      :+:    :+:   */
+/*   image_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 14:03:48 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/11 13:46:15 by lcollado         ###   ########.fr       */
+/*   Created: 2023/10/10 11:03:26 by lcollado          #+#    #+#             */
+/*   Updated: 2023/10/16 14:26:50 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "game.h"
+#include "game_bonus.h"
 
-t_image	new_file_img(void *mlx, char *path) {
+t_image	new_file_img(void *mlx, char *path)
+{
 	t_image image;
 
     image.img_ptr = mlx_xpm_file_to_image(mlx, path, (int *)&image.size.x, (int *)&image.size.y);
     if (!image.img_ptr)
 		printf("File could not be read%s\n", path);
-
-	// image.img_ptr = mlx_xpm_file_to_image(mlx, path, &image.size.x, &image.size.y);
-	// if (!image.img_ptr)
-	// 	printf("File could not be read%s\n", path);
-	// else
-	// 	image.addr = mlx_get_data_addr(image.img_ptr, &(image.bpp),
-	// 		&(image.line_size), &(image.endian));
 	return (image);
 }
 
-t_sprite	new_sprite(void *mlx, char *file_path) {
+t_sprite	new_sprite(void *mlx, char *file_path)
+{
 	t_image	img;
 
 	img = new_file_img(mlx, file_path);
 	return (t_sprite){img, {img.size.x, img.size.y}};
 }
 
-void    img_init(t_game *game)
+void    set_anim(t_game *game)
 {
+    game->player.right = (t_image *)malloc(sizeof(t_image) * 3);
+    game->player.right[0] = new_file_img(game->mlx, "sprites/character1.xpm");
+    game->player.right[1] = new_file_img(game->mlx, "sprites/character.xpm");
+    game->player.right[2] = new_file_img(game->mlx, "sprites/character2.xpm");
+
+    game->p = (t_image *)malloc(sizeof(t_image) * 3);
+    game->p[0] = new_file_img(game->mlx, "sprites/character1.xpm");
+    game->p[1] = new_file_img(game->mlx, "sprites/character.xpm");
+    game->p[2] = new_file_img(game->mlx, "sprites/character2.xpm");
+
+}
+
+void    init_img(t_game *game)
+{
+    game->collection.coin = new_file_img(game->mlx, COIN_IMG);
+    game->collection.exit = new_file_img(game->mlx, EXIT_IMG);
+    game->collection.open_exit = new_file_img(game->mlx, OPEN_EXIT_IMG);
     game->collection.floor = new_file_img(game->mlx, FLOOR_IMG);
     game->collection.wall = new_file_img(game->mlx, TREE_IMG);
-    game->collection.exit = new_file_img(game->mlx, EXIT_IMG);
-    game->collection.player  = new_sprite(game->mlx, LINK_IMG);
-    game->collection.coin = new_file_img(game->mlx, COIN_IMG);
-    game->collec = 0;
-    game->movements = 0;
+    set_anim(game);
+    // game->player.sprite.img = new_file_img(game->mlx, LINK_IMG);
+    game->collection.panel = load_panel_font(game);
 }
 
 void    draw_img(t_game *game, int x, int y)
 {
     mlx_put_image_to_window(game->mlx, game->window.win, game->collection.floor.img_ptr, x *  TILE_SIZE, y * TILE_SIZE);
     if (game->map.coords[y][x] == '1')
-        mlx_put_image_to_window(game->mlx, game->window.win, game->collection.wall.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
-    else if (game->map.coords[y][x] == 'P')
-        mlx_put_image_to_window(game->mlx, game->window.win, game->collection.player.img.img_ptr, game->collection.player.pos.x * TILE_SIZE, game->collection.player.pos.y * TILE_SIZE);
+        mlx_put_image_to_window(game->mlx, game->window.win, game->collection.wall.img_ptr,x * TILE_SIZE, y* TILE_SIZE);
+    // if (game->map.coords[y][x] == 'P')
+    // {
+    //     if (game->player.moving)
+    //     {
+    //         if (game->actions.key_right)
+    //             mlx_put_image_to_window(game->mlx, game->window.win, game->p[game->player.current_frame].img_ptr, game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE);
+    //     }
+    // }
     else if (game->map.coords[y][x] == 'C')
         mlx_put_image_to_window(game->mlx, game->window.win,game->collection.coin.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
     else if (game->map.coords[y][x] == 'E')

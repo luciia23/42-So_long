@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   check_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 14:02:49 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/08 12:58:53 by lcollado         ###   ########.fr       */
+/*   Created: 2023/10/09 12:39:08 by lcollado          #+#    #+#             */
+/*   Updated: 2023/10/12 20:30:10 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "game.h"
+#include "game_bonus.h"
 
 int	valid_file(int argc, char *file)
 {
@@ -125,8 +125,8 @@ int fill(t_map *map, t_vector size, t_vector p_pos, int *c)
 
 int	valid_path(t_game *game)
 {
-	int	p_x = game->collection.player.pos.x;
-	int	p_y = game->collection.player.pos.y;
+	int	p_x = game->player.pos.x;
+	int	p_y = game->player.pos.y;
 
 	t_map	map_copy = copy_map(&game->map);
 
@@ -156,7 +156,7 @@ int	valid_map(t_game *game)
 		{
 			if (!valid_border(x, y, &game->map))
 				return (error("the border map isn't closed"));
-			if (!ft_strchr("01CEP", game->map.coords[y][x]))
+			if (!ft_strchr("01CEPD", game->map.coords[y][x]))
 				return (error("there are wrong characters"));
 			x++;
 		}

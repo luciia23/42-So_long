@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:03:27 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/05 11:22:39 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/08 13:07:14 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ int allowed_keys[] = {ARROW_RIGHT, ARROW_LEFT, ARROW_DOWN, ARROW_UP, KEY_A, KEY_
 int allowed_keys_count = sizeof(allowed_keys) / sizeof(allowed_keys[0]);
 
 int array_contains(int *array, int size, int key) {
-    for (int i = 0; i < size; i++) {
+    int i = 0;
+    while (i < size) {
         if (array[i] == key) {
             return 1;
         }
+        i++;
     }
     return 0;
 }
