@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:02:49 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/08 12:58:53 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:34:43 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_strlen_nonl(char *str)
 
 int	check_rectangular(t_map *map)
 {
-	int initial_len;
+	int initial_len = 0;
 	int i;
 	int actual_len;
 

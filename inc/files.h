@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:05:11 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/11 19:11:08 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:05:26 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FILES_H
 
 /*                           E N V                          */
-# define COIN_IMG           "sprites/env/gema.xpm"
+# define COIN_IMG           "sprites/env/coin_48.xpm"
 # define FLOOR_IMG          "sprites/env/floor.xpm"
 # define OPEN_EXIT_IMG      "sprites/env/open_exit.xpm"
 # define EXIT_IMG           "sprites/env/exit.xpm"

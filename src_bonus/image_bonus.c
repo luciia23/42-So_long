@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 11:03:26 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/17 15:08:26 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:16:43 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,21 @@ t_sprite	new_sprite(void *mlx, char *file_path)
 void    set_anim(t_game *game)
 {
     game->player.right = (t_image *)malloc(sizeof(t_image) * 3);
-    game->player.right[0] = new_file_img(game->mlx, "sprites/link.xpm");
-    game->player.right[1] = new_file_img(game->mlx, "sprites/character.xpm");
-    game->player.right[2] = new_file_img(game->mlx, "sprites/character2.xpm");
+    game->player.right[0] = new_file_img(game->mlx, "sprites/link/Right/walk_right1.xpm");
+    game->player.right[1] = new_file_img(game->mlx, "sprites/link/Right/walk_right2.xpm");
+    game->player.right[2] = new_file_img(game->mlx, "sprites/link/Right/walk_right3.xpm");
+    game->player.left = (t_image *)malloc(sizeof(t_image) * 3);
+    game->player.left[0] = new_file_img(game->mlx, "sprites/link/Left/walk_left1.xpm");
+    game->player.left[1] = new_file_img(game->mlx, "sprites/link/Left/walk_left2.xpm");
+    game->player.left[2] = new_file_img(game->mlx, "sprites/link/Left/walk_left3.xpm");
+    game->player.front = (t_image *)malloc(sizeof(t_image) * 3);
+    game->player.front[0] = new_file_img(game->mlx, "sprites/link/Front/walk_front1.xpm");
+    game->player.front[1] = new_file_img(game->mlx, "sprites/link/Front/walk_front2.xpm");
+    game->player.front[2] = new_file_img(game->mlx, "sprites/link/Front/walk_front3.xpm");
+    game->player.back = (t_image *)malloc(sizeof(t_image) * 3);
+    game->player.back[0] = new_file_img(game->mlx, "sprites/link/back/walk_back1.xpm");
+    game->player.back[1] = new_file_img(game->mlx, "sprites/link/back/walk_back2.xpm");
+    game->player.back[2] = new_file_img(game->mlx, "sprites/link/back/walk_back3.xpm");
 }
 
 void    init_img(t_game *game)
@@ -46,24 +58,24 @@ void    init_img(t_game *game)
     game->collection.floor = new_file_img(game->mlx, FLOOR_IMG);
     game->collection.wall = new_file_img(game->mlx, TREE_IMG);
     set_anim(game);
-    // game->player.sprite.img = new_file_img(game->mlx, LINK_IMG);
     game->collection.panel = load_panel_font(game);
 }
 
 void    draw_img(t_game *game, int x, int y)
 {
-    if (game->map.coords[y][x] == '1' || game->map.coords[y][x] == 'E' || game->map.coords[y][x] == 'C' || game->map.coords[y][x] == 'P')
+    if (game->map.coords[y][x] == '1' || game->map.coords[y][x] == 'E' || game->map.coords[y][x] == 'C' || game->map.coords[y][x] == 'P'
+        || game->map.coords[y][x] == 'D') 
         mlx_put_image_to_window(game->mlx, game->window.win, game->collection.floor.img_ptr, x *  TILE_SIZE, y * TILE_SIZE); 
     if (game->map.coords[y][x] == '1')
         mlx_put_image_to_window(game->mlx, game->window.win, game->collection.wall.img_ptr,x * TILE_SIZE, y* TILE_SIZE);
-    if (game->map.coords[y][x] == 'P')
-    {
-        mlx_put_image_to_window(game->mlx, game->window.win, game->player.right[0].img_ptr, x * TILE_SIZE, y * TILE_SIZE); 
-    }
+    else if (game->map.coords[y][x] == 'P')
+        mlx_put_image_to_window(game->mlx, game->window.win, game->player.front[1].img_ptr, x * TILE_SIZE, y * TILE_SIZE); 
     else if (game->map.coords[y][x] == 'C')
         mlx_put_image_to_window(game->mlx, game->window.win,game->collection.coin.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
     else if (game->map.coords[y][x] == 'E')
         mlx_put_image_to_window(game->mlx,game->window.win, game->collection.exit.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
     else if (game->map.coords[y][x] == '0')
         mlx_put_image_to_window(game->mlx, game->window.win, game->collection.floor.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
+    else if (game->map.coords[y][x] == 'D')
+        mlx_put_image_to_window(game->mlx, game->window.win, game->enemies->sprite.img.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
 }

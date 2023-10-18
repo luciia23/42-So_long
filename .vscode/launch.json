@@ -8,7 +8,7 @@
             "name": "42MAC lldb",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/so_long",
+            "program": "${workspaceFolder}/so_long_bonus",
             "args": ["${workspaceFolder}/map01.ber"],
             "stopAtEntry": true,
             "cwd": "${fileDirname}",

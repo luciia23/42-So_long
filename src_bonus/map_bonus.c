@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:42:25 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/11 13:48:21 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:57:34 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,5 @@ t_map copy_map(const t_map *original)
         }
         i++;
     }
-
     return copy;
 }

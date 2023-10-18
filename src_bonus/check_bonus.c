@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:39:08 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/12 20:30:10 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:00:25 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,12 @@ int fill(t_map *map, t_vector size, t_vector p_pos, int *c)
 
     // Marca la casilla actual como visitada
     map->coords[p_pos.y][p_pos.x] = '1';
-
     // Realiza la llamada recursiva en las cuatro direcciones posibles
-    if (fill(map, size, (t_vector){p_pos.x - 1, p_pos.y}, c) ||
-        fill(map, size, (t_vector){p_pos.x + 1, p_pos.y}, c) ||
-        fill(map, size, (t_vector){p_pos.x, p_pos.y - 1}, c) ||
-        fill(map, size, (t_vector){p_pos.x, p_pos.y + 1}, c))
-    {
-        return 1; // Hay un camino válido
-    }
-
-    return 0; // No hay camino válido
+    fill(map, size, (t_vector){p_pos.x - 1, p_pos.y}, c);
+    fill(map, size, (t_vector){p_pos.x + 1, p_pos.y}, c);
+    fill(map, size, (t_vector){p_pos.x, p_pos.y - 1}, c);
+    fill(map, size, (t_vector){p_pos.x, p_pos.y + 1}, c);
+    return 1; // Hay un camino válido 
 }
 
 
@@ -129,6 +124,7 @@ int	valid_path(t_game *game)
 	int	p_y = game->player.pos.y;
 
 	t_map	map_copy = copy_map(&game->map);
+	
 
 	int	valid_c = 0;
 	if (!fill(&map_copy, (t_vector){game->map.size.x, game->map.size.y}, 
