@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:03:27 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/08 13:07:14 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:54:49 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,20 @@ int	ft_input(int key, t_game *game);
 int allowed_keys[] = {ARROW_RIGHT, ARROW_LEFT, ARROW_DOWN, ARROW_UP, KEY_A, KEY_D, KEY_S, KEY_W};
 int allowed_keys_count = sizeof(allowed_keys) / sizeof(allowed_keys[0]);
 
-int array_contains(int *array, int size, int key) {
-    int i = 0;
-    while (i < size) {
-        if (array[i] == key) {
-            return 1;
-        }
-        i++;
-    }
-    return 0;
+int	array_contains(int *array, int size, int key) {
+	int	i;
+
+	i = 0;
+	while (i < size) {
+		if (array[i] == key) {
+			return 1;
+		}
+		i++;
+	}
+	return 0;
 }
 
-int on_key_press(int keycode, t_game *game)
+int	on_key_press(int keycode, t_game *game)
 {
 	printf("%d\n", keycode);
 	if (array_contains(allowed_keys, allowed_keys_count, keycode)) {
@@ -39,13 +41,13 @@ int on_key_press(int keycode, t_game *game)
     return (0);
 }
 
-int on_key_release(int keycode, t_game *game)
+int	on_key_release(int keycode, t_game *game)
 {
  	if (array_contains(allowed_keys, allowed_keys_count, keycode)) {
-    	game->moving = 0;
+		game->moving = 0;
 	}
 
-    return (0);
+	return (0);
 }
 
 void	verify_collec(int x, int y, t_game *game)
@@ -58,15 +60,15 @@ void	verify_collec(int x, int y, t_game *game)
 		if (game->collec == game->map.total_collec)
 		{
 			if (game->collection.exit.img_ptr)
-        		mlx_destroy_image(game->mlx, game->collection.exit.img_ptr);
+				mlx_destroy_image(game->mlx, game->collection.exit.img_ptr);
 			game->collection.exit.img_ptr = mlx_xpm_file_to_image(game->mlx, OPEN_EXIT_IMG, (int *)&game->collection.exit.size.x, (int *)&game->collection.exit.size.y);
 		}
 	}
 	else if ((game->map.coords[y][x] == 'E' && game->collec == game->map.total_collec))
 	{
-        printf("THE END");
-        mlx_destroy_window(game->mlx, game->window.win);
-        exit(0);
+		printf("THE END");
+		mlx_destroy_window(game->mlx, game->window.win);
+		exit(0);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:05:11 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/18 13:05:26 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:45:32 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,22 @@
 # define TREE_IMG           "sprites/env/tree.xpm"
 # define LINK_IMG           "sprites/link.xpm"
 
+/*                           L I N K                          */
+# define LINK_RIGHT1		"sprites/link/Right/walk_right1.xpm"
+# define LINK_RIGHT2		"sprites/link/Right/walk_right2.xpm"
+# define LINK_RIGHT3		"sprites/link/Right/walk_right3.xpm"
 
+# define LINK_LEFT1			"sprites/link/Left/walk_left1.xpm"
+# define LINK_LEFT2			"sprites/link/Left/walk_left2.xpm"
+# define LINK_LEFT3			"sprites/link/Left/walk_left3.xpm"
+
+# define LINK_FRONT1		"sprites/link/Front/walk_front1.xpm"
+# define LINK_FRONT2		"sprites/link/Front/walk_front2.xpm"
+# define LINK_FRONT3		"sprites/link/Front/walk_front3.xpm"
+
+# define LINK_BACK1			"sprites/link/back/walk_back1.xpm"
+# define LINK_BACK2			"sprites/link/back/walk_back2.xpm"
+# define LINK_BACK3			"sprites/link/back/walk_back3.xpm"
 
 /*                           N U M B E R S                          */
 
@@ -35,7 +50,5 @@
 # define TEXT_NUMBER_7				"sprites/numbers/7.xpm"
 # define TEXT_NUMBER_8				"sprites/numbers/8.xpm"
 # define TEXT_NUMBER_9				"sprites/numbers/9.xpm"
-
-
 
 #endif

@@ -31,6 +31,8 @@ GREEN			=	\033[0;32m
 SRC = 	main.c\
 		check.c\
 		map.c\
+		init.c\
+		valid_path.c\
 		utils.c\
 		window.c\
 		image.c\

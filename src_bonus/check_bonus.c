@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:39:08 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/18 16:00:25 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:08:16 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ int fill(t_map *map, t_vector size, t_vector p_pos, int *c)
 	}
     else if (current_cell == '1')
         return 0;
-	else if (current_cell == 'E')
-		return (*c == map->total_collec) ? 1 : 0;
+	// else if (current_cell == 'E')
+	// 	return (*c == map->total_collec) ? 1 : 0;
 
     // Marca la casilla actual como visitada
     map->coords[p_pos.y][p_pos.x] = '1';
@@ -114,7 +114,9 @@ int fill(t_map *map, t_vector size, t_vector p_pos, int *c)
     fill(map, size, (t_vector){p_pos.x + 1, p_pos.y}, c);
     fill(map, size, (t_vector){p_pos.x, p_pos.y - 1}, c);
     fill(map, size, (t_vector){p_pos.x, p_pos.y + 1}, c);
-    return 1; // Hay un camino válido 
+	if (*c == map->total_collec)
+		return (1);
+    return 0; // Hay un camino válido 
 }
 
 

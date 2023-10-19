@@ -6,136 +6,114 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:04:17 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/07 20:53:46 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:20:45 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "game.h"
 
-# include "game.h"
-
-void    get_rowscols(t_map *map, char *file)
+void	get_rowscols(t_map *map, char *file)
 {
-    char    *line;
-    int     fd;
+	char	*line;
+	int		fd;
 
-    fd = open(file, O_RDONLY);
-    if (fd < 0)
-    {
-        printf("wrong fd");
-        return;
-    }
-    line = get_next_line(fd);
-    map->size.x = ft_strlen(line) - 1;
-    while (line)
-    {
-        map->size.y++;
-        free(line);
-        line = get_next_line(fd);
-    }
-    if (line)
-        free(line);
-    close(fd);
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+	{
+		printf("wrong fd");
+		return ;
+	}
+	line = get_next_line(fd);
+	map->size.x = ft_strlen(line) - 1;
+	while (line)
+	{
+		map->size.y++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	if (line)
+		free(line);
+	close(fd);
 }
 
-void read_map(t_map *map, char *file)
+void	read_map(t_map *map, char *file)
 {
-    char *line;
-    int fd;
-    int i;
+	char	*line;
+	int		fd;
+	int		i;
 
-    fd = open(file, O_RDONLY);
-    if (fd < 0)
-    {
-        printf("wrong fd");
-        return;
-    }
-    map->coords = (char **)malloc(sizeof(char *) * (map->size.y + 1));
-    if (!map->coords)
-    {
-        close(fd);
-        return;
-    }
-    line = get_next_line(fd);
-    i = 0;
-    while (line)
-    {
-        map->coords[i] = strdup(line);
-        free(line);
-        line = get_next_line(fd);
-        i++;
-    }
-    close(fd);
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+	{
+		printf("wrong fd");
+		return ;
+	}
+	map->coords = (char **)malloc(sizeof(char *) * (map->size.y + 1));
+	if (!map->coords)
+	{
+		close(fd);
+		return ;
+	}
+	line = get_next_line(fd);
+	i = 0;
+	while (line)
+	{
+		map->coords[i++] = strdup(line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
 }
 
-void    init_player(t_game *game)
+void	map_init(t_game *game, char *file)
 {
-    int i;
-    int j;
-    i = 0;
-    while (i < game->map.size.y)
-    {
-        j = 0;
-        while (game->map.coords[i][j])
-        {
-            if (game->map.coords[i][j] == 'P')
-            {
-                game->collection.player.pos.x = j;
-                game->collection.player.pos.y = i;
-            }
-            j++;
-        }
-        i++;
-    }
+	game->map.size.x = 0;
+	game->map.size.y = 0;
+	game->map.coords = NULL;
+	game->map.total_collec = 0;
+	get_rowscols(&game->map, file);
+	read_map(&game->map, file);
+	init_player(game);
 }
 
-void    map_init(t_game *game, char *file)
-{       
-    game->map.size.x = 0;
-    game->map.size.y = 0;
-    game->map.coords = NULL;
-    game->map.total_collec = 0;
-    get_rowscols(&game->map, file);
-    read_map(&game->map, file);
-    init_player(game);
+void	draw_map(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < game->map.size.y)
+	{
+		j = 0;
+		while (j < game->map.size.x)
+		{
+			draw_img(game, j, i);
+			j++;
+		}
+		i++;
+	}
 }
 
-void    draw_map(t_game *game)
+t_map	copy_map(const t_map *original)
 {
-    int i;
-    int j;
+	t_map	copy;
+	int		i;
+	int		j;
 
-    i = 0;
-    while(i < game->map.size.y)
-    {
-        j = 0;
-        while (j < game->map.size.x)
-        {
-            draw_img(game, j, i);
-            j++;
-        }
-        i++;
-    }
-}
-
-t_map copy_map(const t_map *original)
-{
-    t_map copy;
-
-    copy.size = original->size;
-    copy.total_collec = original->total_collec;
-    copy.coords = (char **)malloc(original->size.y * sizeof(char *));
-    
-    int i = 0;
-    while (i < original->size.y) {
-        copy.coords[i] = (char *)malloc(original->size.x * sizeof(char));
-        
-        int j = 0;
-        while (j < original->size.x) {
-            copy.coords[i][j] = original->coords[i][j];
-            j++;
-        }
-        i++;
-    }
-
-    return copy;
+	copy.size = original->size;
+	copy.total_collec = original->total_collec;
+	copy.coords = (char **)malloc(original->size.y * sizeof(char *));
+	i = 0;
+	while (i < original->size.y)
+	{
+		copy.coords[i] = (char *)malloc(original->size.x * sizeof(char));
+		j = 0;
+		while (j < original->size.x)
+		{
+			copy.coords[i][j] = original->coords[i][j];
+			j++;
+		}
+		i++;
+	}
+	return (copy);
 }

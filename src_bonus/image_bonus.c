@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 11:03:26 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/18 13:16:43 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:36:07 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,21 @@ t_sprite	new_sprite(void *mlx, char *file_path)
 void    set_anim(t_game *game)
 {
     game->player.right = (t_image *)malloc(sizeof(t_image) * 3);
-    game->player.right[0] = new_file_img(game->mlx, "sprites/link/Right/walk_right1.xpm");
-    game->player.right[1] = new_file_img(game->mlx, "sprites/link/Right/walk_right2.xpm");
-    game->player.right[2] = new_file_img(game->mlx, "sprites/link/Right/walk_right3.xpm");
+    game->player.right[0] = new_file_img(game->mlx, LINK_RIGHT1);
+    game->player.right[1] = new_file_img(game->mlx, LINK_RIGHT2);
+    game->player.right[2] = new_file_img(game->mlx, LINK_RIGHT3);
     game->player.left = (t_image *)malloc(sizeof(t_image) * 3);
-    game->player.left[0] = new_file_img(game->mlx, "sprites/link/Left/walk_left1.xpm");
-    game->player.left[1] = new_file_img(game->mlx, "sprites/link/Left/walk_left2.xpm");
-    game->player.left[2] = new_file_img(game->mlx, "sprites/link/Left/walk_left3.xpm");
+    game->player.left[0] = new_file_img(game->mlx, LINK_LEFT1);
+    game->player.left[1] = new_file_img(game->mlx, LINK_LEFT2);
+    game->player.left[2] = new_file_img(game->mlx, LINK_LEFT3);
     game->player.front = (t_image *)malloc(sizeof(t_image) * 3);
-    game->player.front[0] = new_file_img(game->mlx, "sprites/link/Front/walk_front1.xpm");
-    game->player.front[1] = new_file_img(game->mlx, "sprites/link/Front/walk_front2.xpm");
-    game->player.front[2] = new_file_img(game->mlx, "sprites/link/Front/walk_front3.xpm");
+    game->player.front[0] = new_file_img(game->mlx, LINK_FRONT1);
+    game->player.front[1] = new_file_img(game->mlx, LINK_FRONT2);
+    game->player.front[2] = new_file_img(game->mlx, LINK_FRONT3);
     game->player.back = (t_image *)malloc(sizeof(t_image) * 3);
-    game->player.back[0] = new_file_img(game->mlx, "sprites/link/back/walk_back1.xpm");
-    game->player.back[1] = new_file_img(game->mlx, "sprites/link/back/walk_back2.xpm");
-    game->player.back[2] = new_file_img(game->mlx, "sprites/link/back/walk_back3.xpm");
+    game->player.back[0] = new_file_img(game->mlx, LINK_BACK1);
+    game->player.back[1] = new_file_img(game->mlx, LINK_BACK2);
+    game->player.back[2] = new_file_img(game->mlx, LINK_BACK3);
 }
 
 void    init_img(t_game *game)
