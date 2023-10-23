@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:37:25 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/19 14:09:03 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/20 11:51:56 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,12 @@ t_window	ft_new_window(void *mlx, int width, int height, char *title);
 // MAP
 void		map_init(t_game *game, char *file);
 t_map		copy_map(const t_map *original);
-void		draw_map(t_game *game);
+void    draw_map(t_game *game, char flag);
 
 // IMAGES
 t_sprite	new_sprite(void *mlx, char *file_path);
 t_image		new_file_img(void *mlx, char *path);
-void		draw_img(t_game *game, int x, int y);
+void    draw_img(t_game *game, int x, int y, char flag);
 
 // PANEL
 t_font		load_panel_font(t_game *game);

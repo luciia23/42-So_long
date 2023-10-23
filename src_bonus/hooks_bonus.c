@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:07:48 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/19 13:39:16 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/22 21:35:20 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,54 +85,16 @@ int	enemy_movement(t_game *game, int x, int y, t_enemy *enemy)
 
 	x_pos = enemy->sprite.pos.x + x;
 	y_pos = enemy->sprite.pos.y + y;
-	printf("x.:%d\n", x_pos);
-	printf("y.:%d\n", y_pos);
 	sig = game->map.coords[y_pos][x_pos];
-	printf("sig:%c\n", sig);
 	if (sig == '0')
-		return (1);
-	else
 	{
-		printf("entra aqui\n");
-		return (0);
+		enemy->sprite.pos.x = x_pos;
+		enemy->sprite.pos.y = y_pos;
+		return (1); 
 	}
+	else
+		return (0);
 }
-
-void	img(t_game *game, int x, int y)
-{
-	if (game->map.coords[y][x] == '1' || game->map.coords[y][x] == 'E' || game->map.coords[y][x] == 'C' || game->map.coords[y][x] == 'P' || game->map.coords[y][x] == 'D')
-        mlx_put_image_to_window(game->mlx, game->window.win, game->collection.floor.img_ptr, x *  TILE_SIZE, y * TILE_SIZE); 
-    if (game->map.coords[y][x] == '1')
-        mlx_put_image_to_window(game->mlx, game->window.win, game->collection.wall.img_ptr,x * TILE_SIZE, y* TILE_SIZE);
-    else if (game->map.coords[y][x] == 'C')
-        mlx_put_image_to_window(game->mlx, game->window.win,game->collection.coin.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
-    else if (game->map.coords[y][x] == 'E')
-        mlx_put_image_to_window(game->mlx,game->window.win, game->collection.exit.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
-    else if (game->map.coords[y][x] == '0')
-        mlx_put_image_to_window(game->mlx, game->window.win, game->collection.floor.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
-	// else if (game->map.coords[y][x] == 'D')
-	// 	mlx_put_image_to_window(game->mlx, game->window.win, game->enemies->sprite.img.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
-}
-
-void	draw(t_game *game)
-{
-	int i;
-    int j;
-
-    i = 0;
-    update_panel(game);
-    while(i < game->map.size.y)
-    {
-        j = 0;
-        while (j < game->map.size.x)
-        {
-            img(game, j, i);
-            j++;
-        }
-        i++;
-    }
-}
-
 void	verify(int x, int y, t_game *game)
 {
 	if (game->map.coords[y][x] == 'C')
@@ -148,7 +110,10 @@ void	verify(int x, int y, t_game *game)
 		}
 	}
 	else if (game->map.coords[y][x] == 'D')
+	{
+		printf("holi verify\n");
 		lose_game(game);
+	}
 	else if ((game->map.coords[y][x] == 'E' && game->player.collec == game->map.total_collec))
 		win_game(game);
 }
@@ -156,49 +121,64 @@ void	verify(int x, int y, t_game *game)
 void move_player(t_game *game, int dx, int dy, t_image *image) {
     game->player.pos.x += dx;
     game->player.pos.y += dy;
+	printf("player x:%d\n", game->player.pos.x);
+	printf("player y:%d\n", game->player.pos.y);
 	game->player.steps++;
     mlx_clear_window(game->mlx, game->window.win);
-    draw(game);
-    mlx_put_image_to_window(game->mlx, game->window.win, game->collection.floor.img_ptr, game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE);
+    draw_map(game, 'M');
     mlx_put_image_to_window(game->mlx, game->window.win, image[game->player.current_frame].img_ptr, game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE);
     verify(game->player.pos.x, game->player.pos.y, game);
 }
 
-void	draw_enemy(t_game *game, int x, int y)
+void	draw_enemy(t_game *game, int x, int y, t_enemy *enemy)
 {
-	mlx_clear_window(game->mlx, game->window.win);
-    draw(game);
-    mlx_put_image_to_window(game->mlx, game->window.win, game->collection.floor.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
-    mlx_put_image_to_window(game->mlx, game->window.win, game->enemies->sprite.img.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
+	// mlx_clear_window(game->mlx, game->window.win);
+	int	e_x = enemy->sprite.pos.x + x;
+	int	e_y = enemy->sprite.pos.y + y;
+	// printf("sprite x:%d\n", enemy->sprite.pos.x);
+	// printf("sprite y:%d\n", enemy->sprite.pos.y);
+	// printf("x sig:%d\n", e_x);
+	// printf("y sig:%d\n", e_y);
+	game->map.coords[enemy->sprite.pos.y][enemy->sprite.pos.x] = '0';
+	game->map.coords[e_y][e_x] = 'D';
+    // draw_map(game, 'M');
+    // mlx_put_image_to_window(game->mlx, game->window.win, game->collection.floor.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
+    // mlx_put_image_to_window(game->mlx, game->window.win, game->enemies->sprite.img.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
 }
 
-void	move_enemy(t_game *game, t_enemy *enemy)
-{
-	int r = rand() % 3;
+void move_enemy(t_game *game, t_enemy *enemy) {
+    int r = rand() % 4;
 
-	printf("random:%d\n", r);
+    int dx = 0;
+    int dy = 0;
 
-	if (r == 0)
-	{
-		if (enemy_movement(game, 1, 0, enemy))
-			draw_enemy(game, enemy->sprite.pos.x + 1, enemy->sprite.pos.y);
-	}
-	else if (r == 1)
-	{
-		if (enemy_movement(game, 0, -1, enemy))
-			draw_enemy(game, enemy->sprite.pos.x, enemy->sprite.pos.y - 1);		
-	}
-	else if (r == 2)
-	{
-		if (enemy_movement(game, -1, 0, enemy))
-			draw_enemy(game, enemy->sprite.pos.x - 1, enemy->sprite.pos.y);
-	}
-	else if (r == 3)
-	{
-		if (enemy_movement(game, 0, 1, enemy))
-			draw_enemy(game, enemy->sprite.pos.x, enemy->sprite.pos.y + 1);
-	}
+    if (r == 0) {
+        dx = 1;
+    } else if (r == 1) {
+        dy = -1;
+    } else if (r == 2) {
+        dx = -1;
+    } else if (r == 3) {
+        dy = 1;
+    }
+
+    int new_x = enemy->sprite.pos.x + dx;
+    int new_y = enemy->sprite.pos.y + dy;
+
+    if (enemy_movement(game, dx, dy, enemy)) {
+        game->map.coords[enemy->sprite.pos.y - dy][enemy->sprite.pos.x - dx] = '0';
+
+        enemy->sprite.pos.x = new_x;
+        enemy->sprite.pos.y = new_y;
+
+		printf("inside player x:%d\n", game->player.pos.x);
+		printf("inside player y:%d\n", game->player.pos.y);
+
+        game->map.coords[enemy->sprite.pos.y][enemy->sprite.pos.x] = 'D';
+		draw_map(game, 'f');
+    }
 }
+
 
 void move_enemies(t_game *game, t_enemy *enemies) {
     t_enemy *current;
@@ -206,10 +186,8 @@ void move_enemies(t_game *game, t_enemy *enemies) {
 	
 	current = enemies;
 	i = 0;
-    while (current && i < game->enemy_count) {
-		printf("x:%d\n", current->sprite.pos.x);
-		printf("y:%d\n", current->sprite.pos.y);
-		printf("----\n");
+    while (current && i < game->enemy_count)
+	{
         move_enemy(game, current);
 		i++;
         current = current->next;
@@ -218,7 +196,18 @@ void move_enemies(t_game *game, t_enemy *enemies) {
 
 int update(t_game *game)
 {
+	move_enemies(game, game->enemies);
 	check_frames(game);
+	t_enemy *current = game->enemies;
+    while (current) {
+        if (game->player.pos.x == current->sprite.pos.x && game->player.pos.y == current->sprite.pos.y) {
+            // El jugador ha chocado con un enemigo, realiza la acción correspondiente (por ejemplo, perder el juego).
+			printf("holi\n");
+            lose_game(game);
+            return 0; // No muevas al jugador si ha chocado con un enemigo.
+        }
+        current = current->next;
+    }
 	if (game->actions.key_right)
 	{
 		if (movement(game, 1, 0))
@@ -239,6 +228,5 @@ int update(t_game *game)
 		if (movement(game, 0, 1))
 			move_player(game, 0, 1, game->player.front);
 	}
-	// move_enemies(game, game->enemies);
 	return (0);
 }

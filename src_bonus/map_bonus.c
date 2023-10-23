@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:42:25 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/18 15:57:34 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/20 11:50:37 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void    map_init(t_game *game, char *file)
     init_player(game);
 }
 
-void    draw_map(t_game *game)
+void    draw_map(t_game *game, char flag)
 {
     int i;
     int j;
@@ -89,7 +89,7 @@ void    draw_map(t_game *game)
         j = 0;
         while (j < game->map.size.x)
         {
-            draw_img(game, j, i);
+            draw_img(game, j, i, flag);
             j++;
         }
         i++;

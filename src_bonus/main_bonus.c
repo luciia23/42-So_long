@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:00:05 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/18 15:25:22 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/20 11:51:10 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    init(t_game *game)
 	init_img(game);
 	game->actions = (t_actions){false, false, false, false};
 	init_enemies(game);
-	draw_map(game);
+	draw_map(game, 'P');
 }
 
 int start(t_game *game, int argc, char *argv[])

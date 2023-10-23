@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 11:03:26 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/19 13:36:07 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/20 11:50:55 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ void    init_img(t_game *game)
     game->collection.panel = load_panel_font(game);
 }
 
-void    draw_img(t_game *game, int x, int y)
+void    draw_img(t_game *game, int x, int y, char flag)
 {
     if (game->map.coords[y][x] == '1' || game->map.coords[y][x] == 'E' || game->map.coords[y][x] == 'C' || game->map.coords[y][x] == 'P'
         || game->map.coords[y][x] == 'D') 
         mlx_put_image_to_window(game->mlx, game->window.win, game->collection.floor.img_ptr, x *  TILE_SIZE, y * TILE_SIZE); 
     if (game->map.coords[y][x] == '1')
         mlx_put_image_to_window(game->mlx, game->window.win, game->collection.wall.img_ptr,x * TILE_SIZE, y* TILE_SIZE);
-    else if (game->map.coords[y][x] == 'P')
+    else if (flag == 'P' && game->map.coords[y][x] == 'P')
         mlx_put_image_to_window(game->mlx, game->window.win, game->player.front[1].img_ptr, x * TILE_SIZE, y * TILE_SIZE); 
     else if (game->map.coords[y][x] == 'C')
         mlx_put_image_to_window(game->mlx, game->window.win,game->collection.coin.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
