@@ -6,11 +6,11 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:02:39 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/19 15:13:06 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:03:58 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#	include	"game.h"
+#include "game.h"
 
 int	error(char *msg)
 {

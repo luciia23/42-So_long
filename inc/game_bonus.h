@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:37:25 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/20 11:51:56 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/11/29 14:43:55 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_player {
 typedef struct s_enemy
 {
 	t_sprite	sprite;
-	int			frames;
 	struct		s_enemy	*next;
 }				t_enemy;
 
@@ -94,12 +93,14 @@ typedef struct s_game
 // CHECK
 int			valid_file(int argc, char *file);
 int			valid_map(t_game *game);
+int	valid_path(t_game *game);
 
 // UTILS
 int			error(char *msg);
 void		free_map(t_map *map);
 void		win_game(t_game *game);
 void		lose_game(t_game *game);
+void    free_enemy(t_enemy *enemy);
 
 // WINDOW
 t_window	ft_new_window(void *mlx, int width, int height, char *title);
@@ -107,12 +108,13 @@ t_window	ft_new_window(void *mlx, int width, int height, char *title);
 // MAP
 void		map_init(t_game *game, char *file);
 t_map		copy_map(const t_map *original);
-void    draw_map(t_game *game, char flag);
+void    draw_map(t_game *game, int flag);
+
 
 // IMAGES
 t_sprite	new_sprite(void *mlx, char *file_path);
 t_image		new_file_img(void *mlx, char *path);
-void    draw_img(t_game *game, int x, int y, char flag);
+void    draw_img(t_game *game, int x, int y, int flag);
 
 // PANEL
 t_font		load_panel_font(t_game *game);

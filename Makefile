@@ -11,11 +11,11 @@ CFLAGS =  -g -fsanitize=address -g3
 # VALGRIND_FLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose
 CC = gcc $(CFLAGS) $(INCLUDE)
 # ------- MLX -------
-MLX_DIR = mlx_linux
+MLX_DIR = mlx
 MLX_PATH = $(MLX_DIR)/libmlx.a
 MLX_MAKE = Makefile
-# MFLAGS = -ldl -lmlx -L${MLX_DIR} -framework OpenGL -framework AppKit -lz
-MFLAGS = -ldl -lmlx -L${MLX_DIR} -lXext -lX11
+MFLAGS = -ldl -lmlx -L${MLX_DIR} -framework OpenGL -framework AppKit -lz
+# MFLAGS = -ldl -lmlx -L${MLX_DIR} -lXext -lX11
 
 # ------- LIBFT -------
 LIBFT_DIR = libft
@@ -47,7 +47,8 @@ SRC_BONUS = main_bonus.c\
 			init_bonus.c\
 			image_bonus.c\
 			panel_bonus.c\
-			hooks_bonus.c
+			hooks_bonus.c\
+			valid_path_bonus.c
 
 OBJS = $(SRC:%.c=$(BIN)/%.o)
 

@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:40:45 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/19 13:39:04 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:23:17 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,41 @@ int	error(char *msg)
 	return (0);
 }
 
-void    win_game(t_game *game)
+void	win_game(t_game *game)
 {
-    printf("THE END : YOU WON ");
-    mlx_destroy_window(game->mlx, game->window.win);
-    exit(0);
+	printf("THE END : YOU WON ");
+	mlx_destroy_window(game->mlx, game->window.win);
+	exit(0);
 }
 
-void    lose_game(t_game *game)
+void	lose_game(t_game *game)
 {
-    printf("THE END: YOU LOST");
-    mlx_destroy_window(game->mlx, game->window.win);
-    exit(0);
+	printf("THE END: YOU LOST");
+	mlx_destroy_window(game->mlx, game->window.win);
+	exit(0);
 }
 
-void    free_map(t_map *map)
+int	ft_strlen_nonl(char *str)
 {
-    int i = 0;
+	int	i;
 
-    while (i < map->size.y)
-    {
-        if (map->coords[i] != NULL)
-            free(map->coords[i]);
-        i++;
-    }
-    free(map->coords);
-    map->coords = NULL;
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	return (i);
+}
+
+void	free_map(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->size.y)
+	{
+		if (map->coords[i] != NULL)
+			free(map->coords[i]);
+		i++;
+	}
+	free(map->coords);
+	map->coords = NULL;
 }

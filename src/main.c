@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:03:59 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/19 14:40:37 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:01:37 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	game_init(t_game *game)
 	game->window = ft_new_window(game->mlx, game->map.size.x * TILE_SIZE,
 			(game->map.size.y * TILE_SIZE), "SO_LONG");
 	img_init(game);
+	init_player(game);
 	draw_map(game);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:02:49 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/19 15:56:48 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/11/29 14:22:13 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ int	check_chars(t_map *map)
 	int	p;
 	int	e;
 
-	i = 0;
+	i = -1;
 	p = 0;
 	e = 0;
-	while (i < map->size.y)
+	while (++i < map->size.y)
 	{
-		j = 0;
-		while (j < map->size.x)
+		j = -1;
+		while (++j < map->size.x)
 		{
 			if (map->coords[i][j] == 'P')
 				p++;
@@ -71,9 +71,7 @@ int	check_chars(t_map *map)
 				e++;
 			if (map->coords[i][j] == 'C')
 				map->total_collec++;
-			j++;
 		}
-		i++;
 	}
 	if (p != 1 || e != 1 || map->total_collec == 0)
 		return (0);

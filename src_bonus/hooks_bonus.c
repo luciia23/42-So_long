@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:07:48 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/22 21:35:20 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/11/29 14:19:44 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int on_key_press(int keycode, t_game *game)
 {
-	// printf("%d\n", keycode);
 	if (keycode == KEY_W || keycode == ARROW_UP)
 	{
 		game->actions.key_up = true;
@@ -110,10 +109,7 @@ void	verify(int x, int y, t_game *game)
 		}
 	}
 	else if (game->map.coords[y][x] == 'D')
-	{
-		printf("holi verify\n");
 		lose_game(game);
-	}
 	else if ((game->map.coords[y][x] == 'E' && game->player.collec == game->map.total_collec))
 		win_game(game);
 }
@@ -121,29 +117,19 @@ void	verify(int x, int y, t_game *game)
 void move_player(t_game *game, int dx, int dy, t_image *image) {
     game->player.pos.x += dx;
     game->player.pos.y += dy;
-	printf("player x:%d\n", game->player.pos.x);
-	printf("player y:%d\n", game->player.pos.y);
 	game->player.steps++;
+	verify(game->player.pos.x, game->player.pos.y, game);
     mlx_clear_window(game->mlx, game->window.win);
-    draw_map(game, 'M');
+    draw_map(game, 0);
     mlx_put_image_to_window(game->mlx, game->window.win, image[game->player.current_frame].img_ptr, game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE);
-    verify(game->player.pos.x, game->player.pos.y, game);
 }
 
 void	draw_enemy(t_game *game, int x, int y, t_enemy *enemy)
 {
-	// mlx_clear_window(game->mlx, game->window.win);
 	int	e_x = enemy->sprite.pos.x + x;
 	int	e_y = enemy->sprite.pos.y + y;
-	// printf("sprite x:%d\n", enemy->sprite.pos.x);
-	// printf("sprite y:%d\n", enemy->sprite.pos.y);
-	// printf("x sig:%d\n", e_x);
-	// printf("y sig:%d\n", e_y);
 	game->map.coords[enemy->sprite.pos.y][enemy->sprite.pos.x] = '0';
 	game->map.coords[e_y][e_x] = 'D';
-    // draw_map(game, 'M');
-    // mlx_put_image_to_window(game->mlx, game->window.win, game->collection.floor.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
-    // mlx_put_image_to_window(game->mlx, game->window.win, game->enemies->sprite.img.img_ptr, x * TILE_SIZE, y * TILE_SIZE);
 }
 
 void move_enemy(t_game *game, t_enemy *enemy) {
@@ -171,11 +157,8 @@ void move_enemy(t_game *game, t_enemy *enemy) {
         enemy->sprite.pos.x = new_x;
         enemy->sprite.pos.y = new_y;
 
-		printf("inside player x:%d\n", game->player.pos.x);
-		printf("inside player y:%d\n", game->player.pos.y);
-
         game->map.coords[enemy->sprite.pos.y][enemy->sprite.pos.x] = 'D';
-		draw_map(game, 'f');
+		draw_map(game, 0);
     }
 }
 
@@ -194,39 +177,58 @@ void move_enemies(t_game *game, t_enemy *enemies) {
     }
 }
 
+void	draw_player(t_game *game, t_image *image)
+{
+	mlx_clear_window(game->mlx, game->window.win);
+    draw_map(game, 0);
+    mlx_put_image_to_window(game->mlx, game->window.win, image[game->player.current_frame].img_ptr, game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE);
+}
+
+void    check_collision(t_game *game)
+{
+    t_enemy *current = game->enemies;
+    while (current) {
+        if (game->player.pos.x == current->sprite.pos.x && game->player.pos.y == current->sprite.pos.y) {
+            // El jugador ha chocado con un enemigo, realiza la acción correspondiente (por ejemplo, perder el juego).
+            lose_game(game);
+            return ; // No muevas al jugador si ha chocado con un enemigo.
+        }
+        current = current->next;
+    }
+}
+
 int update(t_game *game)
 {
 	move_enemies(game, game->enemies);
 	check_frames(game);
-	t_enemy *current = game->enemies;
-    while (current) {
-        if (game->player.pos.x == current->sprite.pos.x && game->player.pos.y == current->sprite.pos.y) {
-            // El jugador ha chocado con un enemigo, realiza la acción correspondiente (por ejemplo, perder el juego).
-			printf("holi\n");
-            lose_game(game);
-            return 0; // No muevas al jugador si ha chocado con un enemigo.
-        }
-        current = current->next;
-    }
+	// check_collision(game);
 	if (game->actions.key_right)
 	{
 		if (movement(game, 1, 0))
-			move_player(game, 1, 0, game->player.right);	
+			move_player(game, 1, 0, game->player.right);
+		else
+			draw_player(game, game->player.right);	
 	}
 	else if (game->actions.key_left)
 	{
 		if (movement(game, -1, 0))
-			move_player(game, -1, 0, game->player.left);	
+			move_player(game, -1, 0, game->player.left);
+		else
+			draw_player(game, game->player.left);	
 	}
 	else if (game->actions.key_up)
 	{
 		if (movement(game, 0, -1))
 			move_player(game, 0, -1, game->player.back);
+		else
+			draw_player(game, game->player.back);
 	}
 	else if (game->actions.key_down)
 	{
 		if (movement(game, 0, 1))
 			move_player(game, 0, 1, game->player.front);
+		else
+			draw_player(game, game->player.front);
 	}
 	return (0);
 }
