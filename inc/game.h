@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:05:25 by lcollado          #+#    #+#             */
-/*   Updated: 2023/11/29 14:26:07 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/11/29 20:20:51 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@
 # include "keys.h"
 
 # define TILE_SIZE 64
-
-int allowed_keys[] = {ARROW_RIGHT, ARROW_LEFT, ARROW_DOWN, ARROW_UP, KEY_A, KEY_D, KEY_S, KEY_W};
-int allowed_keys_count = sizeof(allowed_keys) / sizeof(allowed_keys[0]);
 
 /*COLORS*/
 # define RED "\033[0m"
