@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:37:10 by lcollado          #+#    #+#             */
-/*   Updated: 2023/11/29 15:24:13 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/12/11 13:17:23 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,18 @@ int	fill(t_map *map, t_vector size, t_vector p_pos, int *c)
 	return 0; // Hay un camino válido 
 }
 
-
 int	valid_path(t_game *game)
 {
-	int	p_x = game->player.pos.x;
-	int	p_y = game->player.pos.y;
+	t_map	map_copy;
+	int		p_x;
+	int		p_y;
+	int		valid_c;
 
-	t_map	map_copy = copy_map(&game->map);
-	
-
-	int	valid_c = 0;
-	if (!fill(&map_copy, (t_vector){game->map.size.x, game->map.size.y}, 
+	map_copy = copy_map(&game->map);
+	p_x = game->player.pos.x;
+	p_y = game->player.pos.y;
+	valid_c = 0;
+	if (!fill(&map_copy, (t_vector){game->map.size.x, game->map.size.y},
 		(t_vector){p_x, p_y}, &valid_c))
 	{
 		free_map(&map_copy);

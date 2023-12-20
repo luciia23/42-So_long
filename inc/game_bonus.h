@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:37:25 by lcollado          #+#    #+#             */
-/*   Updated: 2023/11/29 14:43:55 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:48:45 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void		free_map(t_map *map);
 void		win_game(t_game *game);
 void		lose_game(t_game *game);
 void    free_enemy(t_enemy *enemy);
+int	ft_strlen_nonl(char *str);
 
 // WINDOW
 t_window	ft_new_window(void *mlx, int width, int height, char *title);

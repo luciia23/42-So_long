@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 18:20:34 by lcollado          #+#    #+#             */
-/*   Updated: 2023/11/29 15:00:25 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:52:51 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	add_enemy(t_game *game, int x, int y)
 	t_enemy	*new_enemy;
 
 	new_enemy = malloc(sizeof(t_enemy));
-	new_enemy->sprite = new_sprite(game->mlx, LINK_IMG);
+	new_enemy->sprite = new_sprite(game->mlx, ENEMY_IMG);
 	new_enemy->sprite.pos.x = 0;
 	new_enemy->sprite.pos.y = 0;
 	new_enemy->sprite.pos.x += x;

@@ -6,13 +6,13 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:07:48 by lcollado          #+#    #+#             */
-/*   Updated: 2023/11/29 14:19:44 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:27:39 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game_bonus.h"
 
-int on_key_press(int keycode, t_game *game)
+int	on_key_press(int keycode, t_game *game)
 {
 	if (keycode == KEY_W || keycode == ARROW_UP)
 	{
@@ -39,7 +39,7 @@ int on_key_press(int keycode, t_game *game)
 	return (0);
 }
 
-int on_key_release(int keycode, t_game *game)
+int	on_key_release(int keycode, t_game *game)
 {
 	if (keycode == KEY_W || keycode == ARROW_UP)
 		game->actions.key_up = false;
@@ -62,15 +62,15 @@ void	check_frames(t_game *game)
 
 int	movement(t_game *game, int x, int y)
 {
-	int	x_pos;
-	int	y_pos;
-	char sig;
+	int		x_pos;
+	int		y_pos;
+	char	sig;
 
 	x_pos = game->player.pos.x + x;
 	y_pos = game->player.pos.y + y;
-
 	sig = game->map.coords[y_pos][x_pos];
-	if (sig != '1' && (sig != 'E' || ( sig == 'E' && game->player.collec == game->map.total_collec)))
+	if (sig != '1' && (sig != 'E'
+			|| (sig == 'E' && game->player.collec == game->map.total_collec)))
 		return (1);
 	else
 		return (0);
@@ -78,8 +78,8 @@ int	movement(t_game *game, int x, int y)
 
 int	enemy_movement(t_game *game, int x, int y, t_enemy *enemy)
 {
-	int	x_pos;
-	int	y_pos;
+	int		x_pos;
+	int		y_pos;
 	char	sig;
 
 	x_pos = enemy->sprite.pos.x + x;
@@ -89,77 +89,87 @@ int	enemy_movement(t_game *game, int x, int y, t_enemy *enemy)
 	{
 		enemy->sprite.pos.x = x_pos;
 		enemy->sprite.pos.y = y_pos;
-		return (1); 
+		return (1);
 	}
 	else
 		return (0);
 }
+
 void	verify(int x, int y, t_game *game)
 {
 	if (game->map.coords[y][x] == 'C')
 	{
 		game->map.coords[y][x] = '0';
 		game->player.collec++;
-		
 		if (game->player.collec == game->map.total_collec)
 		{
 			if (game->collection.exit.img_ptr)
-        		mlx_destroy_image(game->mlx, game->collection.exit.img_ptr);
-			game->collection.exit.img_ptr = mlx_xpm_file_to_image(game->mlx, OPEN_EXIT_IMG, (int *)&game->collection.exit.size.x, (int *)&game->collection.exit.size.y);
+				mlx_destroy_image(game->mlx, game->collection.exit.img_ptr);
+			game->collection.exit.img_ptr = mlx_xpm_file_to_image(game->mlx,
+					OPEN_EXIT_IMG, (int *)&game->collection.exit.size.x,
+					(int *)&game->collection.exit.size.y);
 		}
 	}
 	else if (game->map.coords[y][x] == 'D')
 		lose_game(game);
-	else if ((game->map.coords[y][x] == 'E' && game->player.collec == game->map.total_collec))
+	else if ((game->map.coords[y][x] == 'E'
+		&& game->player.collec == game->map.total_collec))
 		win_game(game);
 }
 
-void move_player(t_game *game, int dx, int dy, t_image *image) {
-    game->player.pos.x += dx;
-    game->player.pos.y += dy;
+void	move_player(t_game *game, int dx, int dy, t_image *image)
+{
+	game->player.pos.x += dx;
+	game->player.pos.y += dy;
 	game->player.steps++;
 	verify(game->player.pos.x, game->player.pos.y, game);
-    mlx_clear_window(game->mlx, game->window.win);
-    draw_map(game, 0);
-    mlx_put_image_to_window(game->mlx, game->window.win, image[game->player.current_frame].img_ptr, game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE);
+	mlx_clear_window(game->mlx, game->window.win);
+	draw_map(game, 0);
+	mlx_put_image_to_window(game->mlx, game->window.win,
+		image[game->player.current_frame].img_ptr, game->player.pos.x * TILE_SIZE,
+		game->player.pos.y * TILE_SIZE);
 }
 
 void	draw_enemy(t_game *game, int x, int y, t_enemy *enemy)
 {
-	int	e_x = enemy->sprite.pos.x + x;
-	int	e_y = enemy->sprite.pos.y + y;
+	int	e_x;
+	int	e_y;
+
+	e_x = enemy->sprite.pos.x + x;
+	e_y = enemy->sprite.pos.y + y;
 	game->map.coords[enemy->sprite.pos.y][enemy->sprite.pos.x] = '0';
 	game->map.coords[e_y][e_x] = 'D';
 }
 
 void move_enemy(t_game *game, t_enemy *enemy) {
-    int r = rand() % 4;
+	int	r;
+	int	dx;
+	int	dy; 
 
-    int dx = 0;
-    int dy = 0;
+	r = rand() % 4;
+	dx = 0;
+	dy = 0;
+	if (r == 0)
+		dx = 1;
+	else if (r == 1)
+		dy = -1;
+	else if (r == 2)
+		dx = -1;
+	else if (r == 3)
+		dy = 1;
 
-    if (r == 0) {
-        dx = 1;
-    } else if (r == 1) {
-        dy = -1;
-    } else if (r == 2) {
-        dx = -1;
-    } else if (r == 3) {
-        dy = 1;
-    }
+	int new_x = enemy->sprite.pos.x + dx;
+	int new_y = enemy->sprite.pos.y + dy;
 
-    int new_x = enemy->sprite.pos.x + dx;
-    int new_y = enemy->sprite.pos.y + dy;
+	if (enemy_movement(game, dx, dy, enemy)) {
+		game->map.coords[enemy->sprite.pos.y - dy][enemy->sprite.pos.x - dx] = '0';
 
-    if (enemy_movement(game, dx, dy, enemy)) {
-        game->map.coords[enemy->sprite.pos.y - dy][enemy->sprite.pos.x - dx] = '0';
+		enemy->sprite.pos.x = new_x;
+		enemy->sprite.pos.y = new_y;
 
-        enemy->sprite.pos.x = new_x;
-        enemy->sprite.pos.y = new_y;
-
-        game->map.coords[enemy->sprite.pos.y][enemy->sprite.pos.x] = 'D';
+		game->map.coords[enemy->sprite.pos.y][enemy->sprite.pos.x] = 'D';
 		draw_map(game, 0);
-    }
+	}
 }
 
 
@@ -169,39 +179,39 @@ void move_enemies(t_game *game, t_enemy *enemies) {
 	
 	current = enemies;
 	i = 0;
-    while (current && i < game->enemy_count)
+	while (current && i < game->enemy_count)
 	{
-        move_enemy(game, current);
+		move_enemy(game, current);
 		i++;
-        current = current->next;
-    }
+		current = current->next;
+	}
 }
 
 void	draw_player(t_game *game, t_image *image)
 {
 	mlx_clear_window(game->mlx, game->window.win);
-    draw_map(game, 0);
-    mlx_put_image_to_window(game->mlx, game->window.win, image[game->player.current_frame].img_ptr, game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE);
+	draw_map(game, 0);
+	mlx_put_image_to_window(game->mlx, game->window.win, image[game->player.current_frame].img_ptr, game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE);
 }
 
-void    check_collision(t_game *game)
+void	check_collision(t_game *game)
 {
-    t_enemy *current = game->enemies;
-    while (current) {
-        if (game->player.pos.x == current->sprite.pos.x && game->player.pos.y == current->sprite.pos.y) {
-            // El jugador ha chocado con un enemigo, realiza la acción correspondiente (por ejemplo, perder el juego).
-            lose_game(game);
-            return ; // No muevas al jugador si ha chocado con un enemigo.
-        }
-        current = current->next;
-    }
+	t_enemy *current = game->enemies;
+	while (current) {
+		if (game->player.pos.x == current->sprite.pos.x && game->player.pos.y == current->sprite.pos.y) {
+			// El jugador ha chocado con un enemigo, realiza la acción correspondiente (por ejemplo, perder el juego).
+			lose_game(game);
+			return ; // No muevas al jugador si ha chocado con un enemigo.
+		}
+		current = current->next; 
+	}
 }
 
 int update(t_game *game)
 {
 	move_enemies(game, game->enemies);
 	check_frames(game);
-	// check_collision(game);
+	check_collision(game);
 	if (game->actions.key_right)
 	{
 		if (movement(game, 1, 0))
