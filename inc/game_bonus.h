@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:37:25 by lcollado          #+#    #+#             */
-/*   Updated: 2023/12/11 14:48:45 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/12/28 12:48:26 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,4 +130,15 @@ void		init_player(t_game *game);
 int			on_key_press(int keycode, t_game *game);
 int			on_key_release(int keycode, t_game *game);
 int			update(t_game *game);
+void	verify(int x, int y, t_game *game);
+
+// MOVEMENTS
+int	movement(t_game *game, int x, int y);
+void	move_enemies(t_game *game, t_enemy *enemies);
+void	move_player(t_game *game, int dx, int dy, t_image *image);
+
+// DRAW SPRITES
+void	check_frames(t_game *game);
+void	draw_player(t_game *game, t_image *image);
+
 #endif

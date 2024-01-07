@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:05:25 by lcollado          #+#    #+#             */
-/*   Updated: 2023/11/29 20:20:51 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/07 21:59:42 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			valid_path(t_game *game);
 int			valid_map(t_game *game);
 
 // MAP
-void		map_init(t_game *game, char *file);
+int			map_init(t_game *game, char *file);
 void		draw_map(t_game *game);
 t_map		copy_map(const t_map *original);
 
@@ -95,5 +95,9 @@ void		free_map(t_map *map);
 int			on_key_press(int keycode, t_game *game);
 int			on_key_release(int keycode, t_game *game);
 void		print_steps(t_game *game);
+int			is_valid_move(t_game *game, int x, int y);
+void		move_player(t_game *game, int x, int y);
+void		movement_verification(t_game *game, int new_x, int new_y);
+void		verify_collec(int x, int y, t_game *game);
 
 #endif

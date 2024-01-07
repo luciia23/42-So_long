@@ -6,13 +6,13 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:04:17 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/25 11:57:36 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/07 21:50:28 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
-void	get_rowscols(t_map *map, char *file)
+int	get_rowscols(t_map *map, char *file)
 {
 	char	*line;
 	int		fd;
@@ -21,9 +21,11 @@ void	get_rowscols(t_map *map, char *file)
 	if (fd < 0)
 	{
 		printf("wrong fd");
-		return ;
+		return (0);
 	}
 	line = get_next_line(fd);
+	if (!line)
+		return (error("there is no map"));
 	map->size.x = ft_strlen(line) - 1;
 	while (line)
 	{
@@ -34,6 +36,7 @@ void	get_rowscols(t_map *map, char *file)
 	if (line)
 		free(line);
 	close(fd);
+	return (1);
 }
 
 void	read_map(t_map *map, char *file)
@@ -65,15 +68,20 @@ void	read_map(t_map *map, char *file)
 	close(fd);
 }
 
-void	map_init(t_game *game, char *file)
+int	map_init(t_game *game, char *file)
 {
 	game->map.size.x = 0;
 	game->map.size.y = 0;
 	game->map.coords = NULL;
 	game->map.total_collec = 0;
-	get_rowscols(&game->map, file);
-	read_map(&game->map, file);
-	init_player(game);
+	if (get_rowscols(&game->map, file))
+	{
+		read_map(&game->map, file);
+		init_player(game);
+	}
+	else
+		return (0);
+	return (1);
 }
 
 void	draw_map(t_game *game)

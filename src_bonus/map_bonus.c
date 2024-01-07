@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:42:25 by lcollado          #+#    #+#             */
-/*   Updated: 2023/11/29 15:06:44 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/12/28 12:16:38 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,9 @@ void	read_map(t_map *map, char *file)
 	i = 0;
 	while (line)
 	{
-		map->coords[i] = strdup(line);
+		map->coords[i++] = strdup(line);
 		free(line);
 		line = get_next_line(fd);
-		i++;
 	}
 	close(fd);
 }

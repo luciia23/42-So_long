@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 18:20:34 by lcollado          #+#    #+#             */
-/*   Updated: 2023/12/11 14:52:51 by lcollado         ###   ########.fr       */
+/*   Updated: 2023/12/28 12:32:57 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	init_player(t_game *game)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	while (i < game->map.size.y)
 	{

@@ -37,7 +37,8 @@ SRC = 	main.c\
 		window.c\
 		image.c\
 		free.c\
-		hooks.c
+		hooks.c\
+		movement.c
 
 SRC_BONUS = main_bonus.c\
 			check_bonus.c\
@@ -48,6 +49,8 @@ SRC_BONUS = main_bonus.c\
 			image_bonus.c\
 			panel_bonus.c\
 			hooks_bonus.c\
+			movement_bonus.c\
+			draw_sprites.c\
 			valid_path_bonus.c
 
 OBJS = $(SRC:%.c=$(BIN)/%.o)
