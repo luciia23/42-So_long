@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 21:56:46 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/07 22:00:06 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/10 13:06:02 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,33 @@ int	is_valid_move(t_game *game, int x, int y)
 		return (0);
 	if (sig == '1')
 		return (0);
-	if (sig == 'E' && game->collec != game->map.total_collec)
-		return (0);
+	// if (sig == 'E' && game->collec != game->map.total_collec)
+	// 	return (0);
 	return (1);
+}
+
+void	verify_collec(int x, int y, t_game *game)
+{
+	if (game->map.coords[y][x] == 'C')
+	{
+		game->map.coords[y][x] = '0';
+		game->collec++;
+		if (game->collec == game->map.total_collec)
+		{
+			if (game->collection.exit.img_ptr)
+				mlx_destroy_image(game->mlx, game->collection.exit.img_ptr);
+			game->collection.exit.img_ptr = mlx_xpm_file_to_image(game->mlx,
+					OPEN_EXIT_IMG, (int *)&game->collection.exit.size.x,
+					(int *)&game->collection.exit.size.y);
+		}
+	}
+	else if ((game->map.coords[y][x] == 'E'
+		&& game->collec == game->map.total_collec))
+	{
+		ft_putstr_fd("THE END\n", 2);
+		mlx_destroy_window(game->mlx, game->window.win);
+		exit(0);
+	}
 }
 
 void	move_player(t_game *game, int x, int y)

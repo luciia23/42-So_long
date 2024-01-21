@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:03:59 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/07 14:10:23 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/09 22:08:27 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	game_init(t_game *game)
 
 int	start(t_game *game, int argc, char *argv[])
 {
-	if (!valid_file(argc, argv[1]))
+	if (!valid_file(argc, argv[1], ".ber"))
 		return (0);
 	if (map_init(game, argv[1]))
 	{
@@ -38,10 +38,16 @@ int	start(t_game *game, int argc, char *argv[])
 	return (1);
 }
 
+void	check_leaks(void)
+{
+	system("leaks -q so_long");
+}
+
 int	main(int argc, char *argv[])
 {
 	t_game	game;
 
+	atexit(check_leaks);
 	if (!start(&game, argc, argv))
 		return (0);
 	mlx_hook (game.window.win, 2, 1L << 0, on_key_press, &game);

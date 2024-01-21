@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:37:10 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/07 13:02:27 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/09 19:20:54 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ int	fill(t_map *map, t_vector size, t_vector p_pos, int *c)
 	}
 	else if (current_cell == '1')
 		return (0);
+	else if (current_cell == 'E')
+		map->e_flag = 1;
 	map->coords[p_pos.y][p_pos.x] = '1';
 	fill(map, size, (t_vector){p_pos.x - 1, p_pos.y}, c);
 	fill(map, size, (t_vector){p_pos.x + 1, p_pos.y}, c);
 	fill(map, size, (t_vector){p_pos.x, p_pos.y - 1}, c);
 	fill(map, size, (t_vector){p_pos.x, p_pos.y + 1}, c);
-	if (*c == map->total_collec)
+	if (*c == map->total_collec && map->e_flag == 1)
 		return (1);
 	return (0);
 }
@@ -47,6 +49,7 @@ int	valid_path(t_game *game)
 	p_x = game->player.pos.x;
 	p_y = game->player.pos.y;
 	valid_c = 0;
+	game->map.e_flag = 0;
 	if (!fill(&map_copy, (t_vector){game->map.size.x, game->map.size.y},
 		(t_vector){p_x, p_y}, &valid_c))
 	{

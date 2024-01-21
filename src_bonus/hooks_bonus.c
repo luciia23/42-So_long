@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:07:48 by lcollado          #+#    #+#             */
-/*   Updated: 2023/12/28 12:50:28 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:43:52 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,34 +95,14 @@ int	update(t_game *game)
 {
 	move_enemies(game, game->enemies);
 	check_frames(game);
-	// check_collision(game);
+	check_collision(game);
 	if (game->actions.key_right)
-	{
-		if (movement(game, 1, 0))
-			move_player(game, 1, 0, game->player.right);
-		else
-			draw_player(game, game->player.right);
-	}
+		move_player_if_possible(game, 1, 0, game->player.right);
 	else if (game->actions.key_left)
-	{
-		if (movement(game, -1, 0))
-			move_player(game, -1, 0, game->player.left);
-		else
-			draw_player(game, game->player.left);
-	}
+		move_player_if_possible(game, -1, 0, game->player.left);
 	else if (game->actions.key_up)
-	{
-		if (movement(game, 0, -1))
-			move_player(game, 0, -1, game->player.back);
-		else
-			draw_player(game, game->player.back);
-	}
+		move_player_if_possible(game, 0, -1, game->player.back);
 	else if (game->actions.key_down)
-	{
-		if (movement(game, 0, 1))
-			move_player(game, 0, 1, game->player.front);
-		else
-			draw_player(game, game->player.front);
-	}
+		move_player_if_possible(game, 0, 1, game->player.front);
 	return (0);
 }

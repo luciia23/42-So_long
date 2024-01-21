@@ -6,22 +6,28 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:39:08 by lcollado          #+#    #+#             */
-/*   Updated: 2023/11/29 14:49:15 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:44:04 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game_bonus.h"
 
-int	valid_file(int argc, char *file)
+int	valid_file(int argc, char *file, char *end)
 {
 	int	len;
+	int	end_len;
 
-	len = 0;
 	if (argc == 1)
 		return (error("there are no args"));
-	len = ft_strlen(file);
-	if (!ft_strnstr(file, ".ber", len))
-		return (error("file extension should be .ber"));
+	len = ft_strlen(file) - 1;
+	end_len = ft_strlen(end) - 1;
+	while (end_len >= 0)
+	{
+		if (file[len] != end[end_len])
+			return (error("file extension should be .ber"));
+		len--;
+		end_len--;
+	}
 	return (1);
 }
 

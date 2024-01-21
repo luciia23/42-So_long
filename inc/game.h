@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:05:25 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/07 21:59:42 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/09 19:17:37 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_map {
 	t_vector	size;
 	char		**coords;
 	int			total_collec;
+	int			e_flag;
 }				t_map;
 
 typedef struct s_game {
@@ -68,7 +69,7 @@ typedef struct s_game {
 t_window	ft_new_window(void *mlx, int width, int height, char *title);
 
 // CHECK
-int			valid_file(int argc, char *file);
+int			valid_file(int argc, char *file, char *end);
 int			valid_path(t_game *game);
 int			valid_map(t_game *game);
 

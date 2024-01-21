@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:00:05 by lcollado          #+#    #+#             */
-/*   Updated: 2023/12/27 19:08:36 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/09 22:11:23 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,30 @@ void	init(t_game *game)
 
 int	start(t_game *game, int argc, char *argv[])
 {
-	if (!valid_file(argc, argv[1]))
+	if (!valid_file(argc, argv[1], ".ber"))
 		return (0);
-	map_init(game, argv[1]);
-	if (!valid_map(game))
+	if (map_init(game, argv[1]))
 	{
-		free_map(&game->map);
-		return (0);
+		if (!valid_map(game))
+		{
+			free_map(&game->map);
+			return (0);
+		}
+		init(game);
 	}
-	init(game);
 	return (1);
+}
+
+void	check_leaks(void)
+{
+	system("leaks so_log_bonus");
 }
 
 int	main(int argc, char **argv)
 {
 	t_game	game;
 
+	atexit(check_leaks);
 	if (!start(&game, argc, argv))
 		return (0);
 	mlx_hook(game.window.win, 2, 1L << 0, on_key_press, &game);

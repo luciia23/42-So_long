@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:02:39 by lcollado          #+#    #+#             */
-/*   Updated: 2023/11/23 14:03:58 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/10 13:05:03 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	error(char *msg)
 {
 	ft_putstr_fd("\033[0;31m" " Error\n", 2);
 	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
 	return (0);
 }
 

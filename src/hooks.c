@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:03:27 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/07 22:00:32 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:57:39 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,6 @@ int	on_key_release(int keycode, t_game *game)
 	else if (keycode == KEY_D || keycode == ARROW_RIGHT)
 		game->moving = 0;
 	return (0);
-}
-
-void	verify_collec(int x, int y, t_game *game)
-{
-	if (game->map.coords[y][x] == 'C')
-	{
-		game->map.coords[y][x] = '0';
-		game->collec++;
-		if (game->collec == game->map.total_collec)
-		{
-			if (game->collection.exit.img_ptr)
-				mlx_destroy_image(game->mlx, game->collection.exit.img_ptr);
-			game->collection.exit.img_ptr = mlx_xpm_file_to_image(game->mlx,
-					OPEN_EXIT_IMG, (int *)&game->collection.exit.size.x,
-					(int *)&game->collection.exit.size.y);
-		}
-	}
-	else if ((game->map.coords[y][x] == 'E'
-		&& game->collec == game->map.total_collec))
-	{
-		printf("THE END");
-		mlx_destroy_window(game->mlx, game->window.win);
-		exit(0);
-	}
 }
 
 int	ft_input(int key, t_game *game)

@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:37:25 by lcollado          #+#    #+#             */
-/*   Updated: 2023/12/28 12:48:26 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/09 19:19:59 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_map {
 	t_vector	size;
 	char		**coords;
 	int			total_collec;
+	int			e_flag;
 }				t_map;
 
 typedef struct s_player {
@@ -91,7 +92,7 @@ typedef struct s_game
 }					t_game;
 
 // CHECK
-int			valid_file(int argc, char *file);
+int			valid_file(int argc, char *file, char *end);
 int			valid_map(t_game *game);
 int	valid_path(t_game *game);
 
@@ -107,7 +108,7 @@ int	ft_strlen_nonl(char *str);
 t_window	ft_new_window(void *mlx, int width, int height, char *title);
 
 // MAP
-void		map_init(t_game *game, char *file);
+int			map_init(t_game *game, char *file);
 t_map		copy_map(const t_map *original);
 void    draw_map(t_game *game, int flag);
 
@@ -132,10 +133,13 @@ int			on_key_release(int keycode, t_game *game);
 int			update(t_game *game);
 void	verify(int x, int y, t_game *game);
 
-// MOVEMENTS
+//  PLAYER'S MOVEMENTS
 int	movement(t_game *game, int x, int y);
-void	move_enemies(t_game *game, t_enemy *enemies);
+void move_player_if_possible(t_game *game, int dx, int dy, t_image *sprite);
 void	move_player(t_game *game, int dx, int dy, t_image *image);
+
+// ENEMIES MOVEMENTS
+void	move_enemies(t_game *game, t_enemy *enemies);
 
 // DRAW SPRITES
 void	check_frames(t_game *game);

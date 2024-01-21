@@ -6,21 +6,28 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:02:49 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/07 14:06:50 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/01/09 16:49:51 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
-int	valid_file(int argc, char *file)
+int	valid_file(int argc, char *file, char *end)
 {
 	int	len;
+	int	end_len;
 
 	if (argc == 1)
 		return (error("there are no args"));
-	len = ft_strlen(file);
-	if (!ft_strnstr(file, ".ber", len))
-		return (error("file extension should be .ber"));
+	len = ft_strlen(file) - 1;
+	end_len = ft_strlen(end) - 1;
+	while(end_len >= 0)
+	{
+		if (file[len] != end[end_len])
+			return (error("file extension should be .ber"));
+		len--;
+		end_len--;
+	}
 	return (1);
 }
 
