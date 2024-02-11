@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:02:49 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/09 16:49:51 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/10 12:40:29 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	valid_file(int argc, char *file, char *end)
 		return (error("there are no args"));
 	len = ft_strlen(file) - 1;
 	end_len = ft_strlen(end) - 1;
-	while(end_len >= 0)
+	while (end_len >= 0)
 	{
 		if (file[len] != end[end_len])
 			return (error("file extension should be .ber"));

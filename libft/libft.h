@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:39:23 by lcollado          #+#    #+#             */
-/*   Updated: 2023/05/30 20:25:08 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/10 12:39:29 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdint.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <string.h>
 
-# ifndef BUFFER_SIZE
-# define  BUFFER_SIZE 42
-#endif 
+# define BUFFER_SIZE 42
 
 typedef struct s_list
 {
@@ -79,9 +79,6 @@ t_list	*ft_lstnew(void *content);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*));
 char	*get_next_line(int fd);
-char    *gnl_strchr(const char *s, int c);
+char	*gnl_strchr(const char *s, int c);
 char	*gnl_strjoin(char *s1, char *s2);
-t_list	*ft_lstget(t_list *lst, int index);
-void	ft_lstiter_param(t_list *lst1, t_list *lst2, t_list *lst3, t_list *lst4, void (*f)(void *, void *, void *, void *, void *), void * ptr);
-void    ft_free_matrix(char **matrix);
 #endif

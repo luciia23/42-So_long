@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:05:25 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/09 19:17:37 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:37:26 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,39 +23,32 @@
 # include <unistd.h>
 # include <stdint.h>
 
+# include "utils.h"
 # include "files.h"
 # include "keys.h"
+# include "sprite.h"
 
 # define TILE_SIZE 64
 
 /*COLORS*/
 # define RED "\033[0m"
 
-typedef struct s_vector {
-	int	x;
-	int	y;
-}				t_vector;
-
-# include "sprite.h"
-
-typedef enum e_bool {
-	false,
-	true
-}			t_bool;
-
-typedef struct s_window {
+typedef struct s_window
+{
 	void		*win;
 	t_vector	size;
 }			t_window;
 
-typedef struct s_map {
+typedef struct s_map
+{
 	t_vector	size;
 	char		**coords;
 	int			total_collec;
 	int			e_flag;
 }				t_map;
 
-typedef struct s_game {
+typedef struct s_game
+{
 	void			*mlx;
 	t_window		window;
 	t_map			map;
@@ -98,7 +91,7 @@ int			on_key_release(int keycode, t_game *game);
 void		print_steps(t_game *game);
 int			is_valid_move(t_game *game, int x, int y);
 void		move_player(t_game *game, int x, int y);
-void		movement_verification(t_game *game, int new_x, int new_y);
+int			movement_verification(t_game *game, int new_x, int new_y);
 void		verify_collec(int x, int y, t_game *game);
 
 #endif

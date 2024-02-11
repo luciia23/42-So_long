@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 18:20:34 by lcollado          #+#    #+#             */
-/*   Updated: 2023/12/28 12:32:57 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:45:33 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ void	add_enemy(t_game *game, int x, int y)
 
 	new_enemy = malloc(sizeof(t_enemy));
 	new_enemy->sprite = new_sprite(game->mlx, ENEMY_IMG);
-	new_enemy->sprite.pos.x = 0;
-	new_enemy->sprite.pos.y = 0;
-	new_enemy->sprite.pos.x += x;
-	new_enemy->sprite.pos.y += y;
+	new_enemy->sprite.pos.x = x;
+	new_enemy->sprite.pos.y = y;
 	new_enemy->next = game->enemies;
 	game->enemies = new_enemy;
 }
@@ -65,8 +63,6 @@ void	init_enemies(t_game *game)
 		{
 			if (game->map.coords[i][j] == 'D')
 			{
-				// game->enemies[game->enemy_count].sprite.pos.x = j;
-				// game->enemies[game->enemy_count].sprite.pos.y = i;
 				game->enemy_count++;
 				add_enemy(game, j, i);
 			}

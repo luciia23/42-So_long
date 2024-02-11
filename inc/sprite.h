@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:05:51 by lcollado          #+#    #+#             */
-/*   Updated: 2023/10/19 13:56:31 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/10 12:08:51 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "game.h"
 
-typedef struct s_image{
+typedef struct s_image
+{
 	void		*img_ptr;
 	t_vector	size;
 	char		*addr;
@@ -25,12 +26,14 @@ typedef struct s_image{
 	int			endian;
 }				t_image;
 
-typedef struct s_sprite{
+typedef struct s_sprite
+{
 	t_image		img;
 	t_vector	pos;
 }				t_sprite;
 
-typedef struct s_font{
+typedef struct s_font
+{
 	t_image		zero;
 	t_image		one;
 	t_image		two;
@@ -43,7 +46,8 @@ typedef struct s_font{
 	t_image		nine;
 }				t_font;
 
-typedef struct s_collection{
+typedef struct s_collection
+{
 	t_sprite	player;
 	t_image		floor;
 	t_image		wall;

@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:03:27 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/10 12:57:39 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/11 18:02:52 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,25 @@ int	ft_input(int key, t_game *game)
 {
 	int	pos_x;
 	int	pos_y;
-	int	new_x;
-	int	new_y;
 
 	pos_x = game->collection.player.pos.x;
 	pos_y = game->collection.player.pos.y;
-	new_x = pos_x;
-	new_y = pos_y;
 	if (key == ARROW_RIGHT || key == KEY_D)
-		new_x = pos_x + 1;
+		pos_x = pos_x + 1;
 	else if (key == ARROW_LEFT || key == KEY_A)
-		new_x = pos_x - 1;
+		pos_x = pos_x - 1;
 	else if (key == ARROW_DOWN || key == KEY_S)
-		new_y = pos_y + 1;
+		pos_y = pos_y + 1;
 	else if (key == ARROW_UP || key == KEY_W)
-		new_y = pos_y - 1;
-	movement_verification(game, new_x, new_y);
-	mlx_clear_window(game->mlx, game->window.win);
-	draw_map(game);
-	mlx_put_image_to_window(game->mlx, game->window.win,
-		game->collection.player.img.img_ptr,
-		game->collection.player.pos.x * TILE_SIZE,
-		game->collection.player.pos.y * TILE_SIZE);
+		pos_y = pos_y - 1;
+	if (movement_verification(game, pos_x, pos_y))
+	{
+		mlx_clear_window(game->mlx, game->window.win);
+		draw_map(game);
+		mlx_put_image_to_window(game->mlx, game->window.win,
+			game->collection.player.img.img_ptr,
+			game->collection.player.pos.x * TILE_SIZE,
+			game->collection.player.pos.y * TILE_SIZE);
+	}
 	return (0);
 }

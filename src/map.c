@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:04:17 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/09 17:07:36 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:37:48 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ int	get_rowscols(t_map *map, char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("wrong fd");
+		ft_putstr_fd("wrong fd", 2);
 		return (0);
 	}
 	line = get_next_line(fd);
-	if (!line)
-		return (error("there is no map"));
+	if (!line || line[0] == '\n')
+	{
+		free(line);
+		return (0);
+	}
 	map->size.x = ft_strlen(line) - 1;
 	while (line)
 	{
@@ -33,8 +36,6 @@ int	get_rowscols(t_map *map, char *file)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (line)
-		free(line);
 	close(fd);
 	return (1);
 }
@@ -48,7 +49,7 @@ void	read_map(t_map *map, char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("wrong fd");
+		ft_putstr_fd("wrong fd", 2);
 		return ;
 	}
 	map->coords = (char **)malloc(sizeof(char *) * (map->size.y + 1));

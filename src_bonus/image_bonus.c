@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 11:03:26 by lcollado          #+#    #+#             */
-/*   Updated: 2023/11/29 14:55:54 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:25:35 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ t_image	new_file_img(void *mlx, char *path)
 	image.img_ptr = mlx_xpm_file_to_image(mlx, path, (int *)&image.size.x,
 			(int *)&image.size.y);
 	if (!image.img_ptr)
-		printf("File could not be read%s\n", path);
+	{
+		ft_putstr_fd("File could not be read: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd("\n", 2);
+	}
 	return (image);
 }
 

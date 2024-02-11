@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/02/11 17:42:12 by lcollado          #+#    #+#              #
+#    Updated: 2024/02/11 17:42:33 by lcollado         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = so_long
 NAME_BONUS = so_long_bonus
 
@@ -7,15 +19,16 @@ DIR_SRC = src
 BIN_BONUS = bin/bonus
 DIR_SRC_BONUS = src_bonus
 INCLUDE = -I inc
-CFLAGS =  -g -fsanitize=address -g3
+CFLAGS =  -g -Wall -Wextra -Werror 
+# -fsanitize=address -g3
+
 # VALGRIND_FLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose
 CC = gcc $(CFLAGS) $(INCLUDE)
 # ------- MLX -------
-MLX_DIR = mlx_linux
+MLX_DIR = mlx
 MLX_PATH = $(MLX_DIR)/libmlx.a
 MLX_MAKE = Makefile
-# MFLAGS = -ldl -lmlx -L${MLX_DIR} -framework OpenGL -framework AppKit -lz
-MFLAGS = -ldl -lmlx -L${MLX_DIR} -lXext -lX11
+MFLAGS = -ldl -lmlx -L${MLX_DIR} -framework OpenGL -framework AppKit -lz
 
 # ------- LIBFT -------
 LIBFT_DIR = libft
@@ -95,6 +108,7 @@ clean:
 fclean: clean
 	rm -rf $(OBJS) $(NAME)
 	rm -rf $(OBJS_BONUS) $(NAME_BONUS)
+	rm -rf bin
 
 re : fclean all
 

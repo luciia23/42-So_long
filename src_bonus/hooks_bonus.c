@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:07:48 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/09 21:43:52 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/10 12:43:33 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	verify(int x, int y, t_game *game)
 void	check_collision(t_game *game)
 {
 	t_enemy	*current;
-	
+
 	current = game->enemies;
 	while (current)
 	{
@@ -95,7 +95,6 @@ int	update(t_game *game)
 {
 	move_enemies(game, game->enemies);
 	check_frames(game);
-	check_collision(game);
 	if (game->actions.key_right)
 		move_player_if_possible(game, 1, 0, game->player.right);
 	else if (game->actions.key_left)

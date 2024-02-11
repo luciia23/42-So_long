@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/03 18:26:46 by lcollado          #+#    #+#             */
-/*   Updated: 2022/11/29 16:57:28 by lcollado         ###   ########.fr       */
+/*   Created: 2024/02/11 16:33:02 by lcollado          #+#    #+#             */
+/*   Updated: 2024/02/11 16:34:01 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+typedef struct s_vector
 {
-	t_list	*tmp;
+	int	x;
+	int	y;
+}				t_vector;
 
-	if (!lst || !del)
-		return ;
-	while (*lst)
-	{
-		tmp = (*lst)-> next;
-		ft_lstdelone(*lst, del);
-		(*lst) = tmp;
-	}
-	free(*lst);
-}
+typedef enum e_bool
+{
+	false,
+	true
+}			t_bool;
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 12:41:53 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/10 12:45:26 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:48:07 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,6 @@ int	movement(t_game *game, int x, int y)
 	sig = game->map.coords[y_pos][x_pos];
 	if (sig == '1')
 		return (0);
-	// if (sig != '1' && (sig != 'E'
-	// 		|| (sig == 'E' && game->player.collec == game->map.total_collec)))
-	// 	return (1);
-	// else
 	return (1);
 }
 
@@ -43,10 +39,10 @@ void	move_player(t_game *game, int dx, int dy, t_image *image)
 		game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE);
 }
 
-void	move_player_if_possible(t_game *game, int dx, int dy, t_image *sprite)
+void	move_player_if_possible(t_game *game, int dx, int dy, t_image *spr)
 {
 	if (movement(game, dx, dy))
-		move_player(game, dx, dy, sprite);
+		move_player(game, dx, dy, spr);
 	else
-		draw_player(game, sprite);
+		draw_player(game, spr);
 }

@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:03:59 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/09 22:08:27 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:44:12 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,15 @@ int	start(t_game *game, int argc, char *argv[])
 		}
 		game_init(game);
 	}
+	else
+		return (error("the map is incorrect"));
 	return (1);
-}
-
-void	check_leaks(void)
-{
-	system("leaks -q so_long");
 }
 
 int	main(int argc, char *argv[])
 {
 	t_game	game;
 
-	atexit(check_leaks);
 	if (!start(&game, argc, argv))
 		return (0);
 	mlx_hook (game.window.win, 2, 1L << 0, on_key_press, &game);

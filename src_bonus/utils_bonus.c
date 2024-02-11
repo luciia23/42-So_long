@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:40:45 by lcollado          #+#    #+#             */
-/*   Updated: 2023/11/29 15:23:17 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:50:01 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,22 @@
 
 int	error(char *msg)
 {
-	printf("\033[0;31m" " Error\n    %s\n" "\033[0m", msg);
+	ft_putstr_fd("\033[0;31m" " Error\n", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
 	return (0);
 }
 
 void	win_game(t_game *game)
 {
-	printf("THE END : YOU WON ");
+	ft_putstr_fd("\033[0;32m THE END : YOU WON \n", 1);
 	mlx_destroy_window(game->mlx, game->window.win);
 	exit(0);
 }
 
 void	lose_game(t_game *game)
 {
-	printf("THE END: YOU LOST");
+	ft_putstr_fd("\033[0;31m THE END : YOU LOST \n", 1);
 	mlx_destroy_window(game->mlx, game->window.win);
 	exit(0);
 }

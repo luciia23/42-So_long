@@ -6,7 +6,7 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 21:56:46 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/10 13:06:02 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/11 16:43:15 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	is_valid_move(t_game *game, int x, int y)
 		return (0);
 	if (sig == '1')
 		return (0);
-	// if (sig == 'E' && game->collec != game->map.total_collec)
-	// 	return (0);
 	return (1);
 }
 
@@ -59,11 +57,13 @@ void	move_player(t_game *game, int x, int y)
 	game->collection.player.pos.y = y;
 }
 
-void	movement_verification(t_game *game, int new_x, int new_y)
+int	movement_verification(t_game *game, int new_x, int new_y)
 {
 	if (is_valid_move(game, new_x, new_y))
 	{
 		move_player(game, new_x, new_y);
 		verify_collec(new_x, new_y, game);
+		return (1);
 	}
+	return (0);
 }

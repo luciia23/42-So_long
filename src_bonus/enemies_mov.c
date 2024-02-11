@@ -6,13 +6,13 @@
 /*   By: lcollado <lcollado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 19:14:45 by lcollado          #+#    #+#             */
-/*   Updated: 2024/01/09 22:18:52 by lcollado         ###   ########.fr       */
+/*   Updated: 2024/02/11 16:58:23 by lcollado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game_bonus.h"
 
-int	enemy_movement(t_game *game, int x, int y, t_enemy *enemy)
+int	move_possible(t_game *game, int x, int y, t_enemy *enemy)
 {
 	int		x_pos;
 	int		y_pos;
@@ -31,18 +31,16 @@ int	enemy_movement(t_game *game, int x, int y, t_enemy *enemy)
 		return (0);
 }
 
-void	move_possible(t_game *game, t_vector d, t_vector new, t_enemy *enemy)
+void	enemy_movement(t_game *game, t_vector d, t_enemy *enemy)
 {
 	int	x;
 	int	y;
-	
-	if (enemy_movement(game, d.x, d.y, enemy))
+
+	if (move_possible(game, d.x, d.y, enemy))
 	{
 		y = enemy->sprite.pos.y - d.y;
 		x = enemy->sprite.pos.x - d.x;
 		game->map.coords[y][x] = '0';
-		enemy->sprite.pos.x = new.x;
-		enemy->sprite.pos.y = new.y;
 		game->map.coords[enemy->sprite.pos.y][enemy->sprite.pos.x] = 'D';
 		draw_map(game, 0);
 	}
@@ -69,15 +67,10 @@ void	move_enemy(t_game *game, t_enemy *enemy)
 {
 	int			random;
 	t_vector	d;
-	t_vector	new;
-	int	dx, dy;
-	int	new_x, new_y;
 
 	random = rand() % 4;
 	d = calculate_new_position(random);
-	new.x = enemy->sprite.pos.x + d.x;
-	new.y = enemy->sprite.pos.y + d.y;
-	move_possible(game, d, new, enemy);
+	enemy_movement(game, d, enemy);
 }
 
 void	move_enemies(t_game *game, t_enemy *enemies)
